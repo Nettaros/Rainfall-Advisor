@@ -5,8 +5,7 @@ import Appbar from "./src/components/AppBar.jsx"
 
 export default function App() {
   return (
-      <View style={{backgroundColor: "#1994d4", alignItems: "center" }}> 
-        <Appbar/>
+      <View style={{backgroundColor: "#1994d4", alignItems: "center", flexGrow: 1 }}> 
         <Main/>
       </View>
   );
