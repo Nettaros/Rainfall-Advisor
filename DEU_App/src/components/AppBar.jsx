@@ -7,5 +7,4 @@ const Appbar = () => {
         </View>
     )
 }
-
 export default Appbar
