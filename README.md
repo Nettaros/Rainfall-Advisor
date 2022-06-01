@@ -8,3 +8,5 @@ La aplicación obtiene de la API:https://www.weatherapi.com/ el nivel de precipi
 
 ![imagen](https://user-images.githubusercontent.com/63661809/171318214-663908d0-f7cb-4b6d-82ed-cfa6c7ae197e.png)
 
+## Tecnologías utilizadas
+1. React Native con expo
