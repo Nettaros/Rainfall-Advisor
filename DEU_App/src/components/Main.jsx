@@ -4,21 +4,38 @@ import { onChange } from 'react-native-reanimated'
 import Precipitacion from './hooks/ApiFetch.jsx'
 
 const Main = () => {
-
+  const [precipitacion, setPrecipitacion] = useState(0.0)
   const [minutos, setMinutos] = useState(0)
+  const updateMin = 3;
+  const key = "4eca0073128e406ba75160847222905"
+  const place = "La Plata"
+
+ 
+  const fetchPrecipitacion = async () => {
+    const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
+    const json = await response.json()
+    setPrecipitacion(json.current.precip_mm)
+   //setPrecipitacion(Math.random())
+  }
+
+  useEffect(()=>{
+    fetchPrecipitacion()
+  },[])
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setMinutos(minutos+1)
+      if (minutos == updateMin){
+        setMinutos(0)
+        fetchPrecipitacion()
+      }else{
+        setMinutos(minutos+1)
+      }
+       
     }, 2000)
-
     return () => clearInterval(timer)
   })
 
-  function resetMinutos() {
-    console.log("resetie")
-    setMinutos(0)
-  }
+  
 
   return (
     <View style={styles.container}>
@@ -27,7 +44,7 @@ const Main = () => {
         <Text style={styles.place}>La Plata</Text>
       </View>
       <View style={styles.row}>
-          <Precipitacion style={styles.data} onChange={Main.resetMinutos}/>
+          <Text style={styles.data}>{precipitacion}</Text>
           <Text style={styles.data}>mm</Text>
       </View>
       <View style={[styles.info_container, styles.row]}>
