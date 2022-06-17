@@ -1,19 +1,21 @@
-import React, {useState, useEffect} from 'react'
-import { View ,Text , ScrollView, TouchableOpacity, Modal, Alert} from 'react-native'
+import React from 'react'
+import { View ,Text , ScrollView, TouchableOpacity} from 'react-native'
 import AppModal from "../components/AppModal"
 
 
 const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, options}) => { 
     
     return (
-        <>
-            <View>
-                <AppModal
-                    modalVisible={modalVisible}
-                    title={"Seleccione"}
+        <View>            
+            <ScrollView style={{backgroundColor: "#fff"}}>
+                {settingsOptions.map(({clave, title, subtitle, onPress}) => 
+                <>
+                    <AppModal
+                    modalVisible={modalVisible[clave]}
+                    title={"Cambiar "+title}
                     modalBody={
                         <View>
-                            {options.map(({name, selected, onPress}) => {
+                            {options[clave].map(({name, selected, onPress}) => {
                                 <View key={name}>
                                     <TouchableOpacity
                                         onPress={onPress}
@@ -31,10 +33,7 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                             })}
                         </View>
                     }
-                    setModalVisible={setModalVisible}/>
-                    
-                <ScrollView style={{backgroundColor: "#fff"}}>
-                    {settingsOptions.map(({title, subtitle, onPress}) => 
+                    setModalVisible={setModalVisible[clave]}/>
                     <TouchableOpacity key={title} onPress={onPress}>
                         <View style={{
                             paddingTop: 20,
@@ -45,10 +44,12 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                             <Text style={{fontSize: 14, paddingTop: 5, opacity: 0.6}}>{subtitle}</Text> 
                         </View>
                         <View style={{height:1, backgroundColor: "#4f4f4f"}}></View>
-                    </TouchableOpacity>)}
-                </ScrollView>
-            </View>
-        </>
+                    </TouchableOpacity>
+                </>
+                )}
+                
+            </ScrollView>
+        </View>
     )
 }
 

@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {View, Text, ScrollView} from 'react-native'
+import SettingsComponent from '../SettingsComponent';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const SettingsScreen = () => {
+const SettingScreen = () => {
     const [fontSize, setFontSize] = React.useState(null);
     const [font, setFont] = React.useState(null);
     const [updateTime, setUpdateTime] = React.useState(null)
-    const [modalVisible, setModalVisible] = React.useState(false);
+    const [fontModalVisible, setFontModalVisible] = React.useState(false);
+    const [fontSizeModalVisible, setFontSizeModalVisible] = React.useState(false);
+    const [updateTimeModalVisible, setUpdateTimeModalVisible] = React.useState(false);
     
   
     const saveSetting = (key, value) => {
@@ -14,77 +18,141 @@ const SettingsScreen = () => {
   
     const settingsOptions = [
       {
+        clave: "font",
         title: 'Fuente',
         subTitle: font,
         onPress: () => {
-          setModalVisible(true);
+          setFontModalVisible(true);
         },
       },
       {
+        clave: "fontSize",
         title: 'Tamaño de letra',
         subTitle: fontSize,
         onPress: () => {
-          setModalVisible(true);
+          setFontSizeModalVisible(true);
         },
       },
       {
+        clave: "updateTime",
         title: 'Tiempo de actualización',
         subTitle: updateTime,
         onPress: () => {
-          setModalVisible(true);
+          setUpdateTimeModalVisible(true);
         },
       }
     ];
   
-    const prefArr = [
-      {
-        name: 'First Name',
-        selected: sortBy === 'First Name',
-  
-        onPress: () => {
-          saveSetting('sortBy', 'First Name');
-          setSortBy('First Name');
-          setModalVisible(false);
+    const options = {
+      font: [
+        {
+          name: 'Arial',
+          selected: font === "arial",
+          onPress: () => {
+            saveSetting('font', 'arial')
+            setFont("arial")
+            setFontModalVisible(false)
+          }
         },
-      },
-      {
-        name: 'Last Name',
-        selected: sortBy === 'Last Name',
-        onPress: () => {
-          saveSetting('sortBy', 'Last Name');
-          setSortBy('Last Name');
-          setModalVisible(false);
+        {
+          name: "Calibri",
+          selected: font === "calibri",
+          onPress: () => {
+            saveSetting('font', "calibri")
+            setFont("calibri")
+            setFontModalVisible(false)
+          }
+        }
+      ],
+      fontSize: [
+        {
+          name: "Chica",
+          selected: fontSize === 16,
+          onPress: () => {
+            saveSetting('fontSize', 16)
+            setFontSize(16)
+            setFontSizeModalVisible(false)
+          }
         },
-      },
-    ];
+        {
+          name: "Mediana",
+          selected: fontSize === 20,
+          onPress: () => {
+            saveSetting("fontSize", 20)
+            setFontSize(20)
+            setFontSizeModalVisible(false)
+          }
+        },
+        {
+          name: "Grande",
+          selected: fontSize === 24,
+          onPress: () => {
+            saveSetting("fontSize", 24)
+            setFontSize(24)
+            setFontSizeModalVisible(false)
+          }
+        }
+      ],
+      updateTime: [
+        {
+          name: "15 minutos",
+          selected: updateTime === 900,
+          onPress: () => {
+            saveSetting("updateTime", 900)
+            setUpdateTime(900)
+            setUpdateTimeModalVisible(false)
+          }
+        },
+        {
+          name: "30 minutos",
+          selected: updateTime === 1800,
+          onPress: () => {
+            saveSetting("updateTime", 1800)
+            setUpdateTime(1800)
+            setUpdateTimeModalVisible(false)
+          }
+        },
+        {
+          name: "45 minutos",
+          selected: updateTime === 2700,
+          onPress: () => {
+            saveSetting("updateTime", 2700)
+            setUpdateTime(2700)
+            setUpdateTimeModalVisible(false)
+          }
+        }
+      ]
+    };
   
     const getSettings = async () => {
         await AsyncStorage.getItem("font").then(data => {
-            if(data != null){
+            if(data !== null){
                 setFont(JSON.parse(data));
             }else{
-                await AsyncStorage.setItem("font", "arial")
+                const value = JSON.stringify("arial")
+                AsyncStorage.setItem("font", value)
             }
         }).catch((error) => console.log(error));
       
 
         await AsyncStorage.getItem("fontSize").then(data => {
-            if(data != null){
+            if(data !== null){
                 setFontSize(JSON.parse(data));
             }else{
-                await AsyncStorage.setItem("fontSize", 16)
+                const value = JSON.stringify(16)
+                AsyncStorage.setItem("fontSize", value)
             }
         }).catch((error) => console.log(error));
       
     
         await AsyncStorage.getItem("updateTime").then(data => {
-            if(data != null){
+            if(data !== null){
                 setFont(JSON.parse(updateTime));
             }else{
-                await AsyncStorage.setItem("updateTime", 900)
+                const value = JSON.stringify(900)
+                AsyncStorage.setItem("updateTime", value)
             }
         }).catch((error) => console.log(error));
-
     };
 
     useEffect(() => {
@@ -93,9 +161,22 @@ const SettingsScreen = () => {
   
     return (
       <SettingsComponent
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={
+          {
+            font: fontModalVisible,
+            fontSize: fontSizeModalVisible,
+            updateTime: updateTimeModalVisible
+          }
+        }
+        setModalVisible={
+          {
+            font: setFontModalVisible, 
+            fontSize: setFontSizeModalVisible, 
+            updateTime: setUpdateTimeModalVisible
+          }
+        }
         settingsOptions={settingsOptions}
+        options={options}
       />
     );
   };

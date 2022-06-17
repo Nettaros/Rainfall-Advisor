@@ -2,7 +2,7 @@ import React from "react";
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import {StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 //Screens
-import SettingScreen from "../components/screens/SettingScreen";
+import SettingScreen from "../components/screens/SettingScreen.jsx";
 import RecommendationsScreen from "../components/screens/RecommendationsScreen";
 import WhoWeAreScreen from "../components/screens/WhoWeAreScreen";
 import HelpScreen from "../components/screens/HelpScreen";
