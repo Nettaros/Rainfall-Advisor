@@ -24,6 +24,7 @@ const SettingScreen = () => {
         onPress: () => {
           setFontModalVisible(true);
         },
+        
       },
       {
         clave: "fontSize",
@@ -82,6 +83,7 @@ const SettingScreen = () => {
             setFontSize(20)
             setFontSizeModalVisible(false)
           }
+          
         },
         {
           name: "Grande",
@@ -124,35 +126,38 @@ const SettingScreen = () => {
       ]
     };
   
-    const getSettings = async () => {
-        await AsyncStorage.getItem("font").then(data => {
-            if(data !== null){
-                setFont(JSON.parse(data));
-            }else{
-                const value = JSON.stringify("arial")
-                AsyncStorage.setItem("font", value)
-            }
-        }).catch((error) => console.log(error));
-      
-
-        await AsyncStorage.getItem("fontSize").then(data => {
-            if(data !== null){
-                setFontSize(JSON.parse(data));
-            }else{
-                const value = JSON.stringify(16)
-                AsyncStorage.setItem("fontSize", value)
-            }
-        }).catch((error) => console.log(error));
-      
+    const getSettings = async() => {
+      await AsyncStorage.getItem("font").then(data => {
+          if(data !== null){
+              setFont(data);
+          }else{
+              setFont("arial")
+              const value = JSON.stringify("arial")
+              AsyncStorage.setItem("font", value)
+          }
+      }).catch((error) => console.log(error));
     
-        await AsyncStorage.getItem("updateTime").then(data => {
-            if(data !== null){
-                setFont(JSON.parse(updateTime));
-            }else{
-                const value = JSON.stringify(900)
-                AsyncStorage.setItem("updateTime", value)
-            }
-        }).catch((error) => console.log(error));
+
+      await AsyncStorage.getItem("fontSize").then(data => {
+          if(data !== null){
+            setFontSize(data);
+          }else{
+              setFontSize(16)
+              const value = JSON.stringify(16)
+              AsyncStorage.setItem("fontSize", value)
+          }
+      }).catch((error) => console.log(error));
+    
+  
+      await AsyncStorage.getItem("updateTime").then(data => {
+          if(data !== null){
+            setFont(updateTime);
+          }else{
+              setUpdateTime(900)
+              const value = JSON.stringify(900)
+              AsyncStorage.setItem("updateTime", value)
+          }
+      }).catch((error) => console.log(error));
     };
 
     useEffect(() => {
@@ -160,6 +165,7 @@ const SettingScreen = () => {
     }, []);
   
     return (
+      
       <SettingsComponent
         modalVisible={
           {
@@ -178,6 +184,7 @@ const SettingScreen = () => {
         settingsOptions={settingsOptions}
         options={options}
       />
+
     );
   };
   
