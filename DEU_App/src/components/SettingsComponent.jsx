@@ -5,23 +5,25 @@ import AppModal from "../components/AppModal"
 
 const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, options}) => { 
 
-    const returnBody =(clave) =>{
+    const returnBody = (clave) =>{
         return(
             <View> 
                 {options[clave].map(({name, selected, onPress}) => {
                     return(
-                        <TouchableOpacity
-                            onPress={onPress}
-                            style={{
-                                flexDirection: "row",
-                                paddingVertical: 5,
-                                alignItems: "center"
-                            }}>
-                            {selected && <Text size={30}>*</Text>}
-                            <Text style={{fontSize: 17, paddingLeft: selected ? 15 : 30}}>
-                                {name}
-                            </Text>
-                        </TouchableOpacity>
+                        <View key={name}>
+                            <TouchableOpacity
+                                onPress={onPress}
+                                style={{
+                                    flexDirection: "row",
+                                    paddingVertical: 5,
+                                    alignItems: "center"
+                                }}>
+                                {selected && <Text paddingLeft={20} size={30}>*</Text>}
+                                <Text style={{fontSize: 17, paddingLeft: selected ? 15 : 30}}>
+                                    {name}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     )
                 })}
             </View>
@@ -40,7 +42,7 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                             returnBody(clave)
                         }
                         setModalVisible={setModalVisible[clave]}/>
-                        <TouchableOpacity onPress={onPress} >
+                        <TouchableOpacity onPress={onPress}>
                             <View style={{
                                 paddingTop: 20,
                                 paddingLeft: 20,
