@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Notifications } from 'react-native-notifications'
 
 
 
@@ -36,65 +37,84 @@ const Main = () => {
     return () => clearInterval(timer)
   })
 
+  /*useEffect(() => {
+    if(precipitacion > 60){
+      let localNotif = Notifications.postLocalNotification({
+        body: "Mucha lluvia!",
+        title: "Precipitacion Fuerte",
+        sound: "chime.aiff",
+        silent: false,
+        category: "Alert",
+        userInfo: {},
+        fireDate: new Date()
+      })
+    }
+  }, [precipitacion])*/
+
 
   return (
-    <View style={styles.container}>
-      <View style={styles.title_container}>
-        <Text style={styles.title}>Nivel de precipitación</Text>
-        <Text style={styles.place}>La Plata</Text>
-      </View>
-      
-      <View style={[styles.background_precipitation]}>
-        
-        <View style={[styles.container_pecipitation, styles.row]}>
-          <Text style={styles.data}>{precipitacion}</Text>
-          <Text style={styles.data}>mm</Text>
+    <LinearGradient colors={['rgba(0, 91, 234,0.9)','rgba(0, 198, 251,0.9)','rgba(0, 91, 234,0.9)']} style={styles.background}>
+      <View style={styles.container}>
+        <View style={styles.title_container}>
+          <Text style={styles.title}>Nivel de precipitación</Text>
+          <Text style={styles.place}>La Plata</Text>
         </View>
-        <RNSpeedometer 
-          value={precipitacion} 
-          size={150} 
-          maxValue={100}
-          minValue={0}
-          allowedDecimals={1}
-          defaultValue={0}
-          labelNoteStyle={styles.speedometer}
-          labels={[
-            {
-              name: 'Sin riesgo',
-              labelColor: 'black',
-              activeBarColor: 'green'
-            },
-            {
-              name: 'Bajo riesgo',
-              labelColor: 'black',
-              activeBarColor: 'yellow'
-            },
-            {
-              name: 'Riesgo intermedio',
-              labelColor: 'black',
-              activeBarColor: 'orange'
-            },
-            {
-              name: 'Alto riesgo',
-              labelColor: 'black',
-              activeBarColor: 'red'
-            }
-          ]}
-          />
+        
+        <View style={[styles.background_precipitation]}>
+          
+          <View style={[styles.container_pecipitation, styles.row]}>
+            <Text style={styles.data}>{precipitacion}</Text>
+            <Text style={styles.data}>mm</Text>
+          </View>
+          <RNSpeedometer 
+            value={precipitacion} 
+            size={150} 
+            maxValue={100}
+            minValue={0}
+            allowedDecimals={1}
+            defaultValue={0}
+            labelNoteStyle={styles.speedometer}
+            labels={[
+              {
+                name: 'Sin riesgo',
+                labelColor: 'black',
+                activeBarColor: 'green'
+              },
+              {
+                name: 'Bajo riesgo',
+                labelColor: 'black',
+                activeBarColor: 'yellow'
+              },
+              {
+                name: 'Riesgo intermedio',
+                labelColor: 'black',
+                activeBarColor: 'orange'
+              },
+              {
+                name: 'Alto riesgo',
+                labelColor: 'black',
+                activeBarColor: 'red'
+              }
+            ]}
+            />
 
+        </View>
+        <View style={[styles.info_container, styles.row]}>
+          <Text style={styles.info}>Ultima actualización: </Text>
+          <Text style={styles.info}>{minutos} minutos</Text>
+        </View>
+      
       </View>
-      <View style={[styles.info_container, styles.row]}>
-        <Text style={styles.info}>Ultima actualización: </Text>
-        <Text style={styles.info}>{minutos} minutos</Text>
-      </View>
-     
-    </View>
+    </LinearGradient>
   )
 }
 
 export default Main
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1
+  },
   container: {
     alignItems: "center", 
     justifyContent: "space-between", 
