@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Notifications } from 'react-native-notifications'
 
 
 
@@ -19,6 +18,22 @@ const Main = () => {
     //setPrecipitacion(json.current.precip_mm)
     setPrecipitacion(Math.round(Math.random()*100))
   }
+
+  /*async function onDisplayNotification() {
+    await notifee.requestPermission()
+    const channelId = await notifee.createChannel({
+      id: "default",
+      name: "Default Channel"
+    })
+
+    await notifee.displayNotification({
+      title: "Titulo",
+      body: "Contenido de la noti",
+      android: {
+        channelId
+      }
+    })
+  }*/
 
   useEffect(()=>{
     fetchPrecipitacion()
@@ -39,15 +54,7 @@ const Main = () => {
 
   /*useEffect(() => {
     if(precipitacion > 60){
-      let localNotif = Notifications.postLocalNotification({
-        body: "Mucha lluvia!",
-        title: "Precipitacion Fuerte",
-        sound: "chime.aiff",
-        silent: false,
-        category: "Alert",
-        userInfo: {},
-        fireDate: new Date()
-      })
+      onDisplayNotification()
     }
   }, [precipitacion])*/
 
