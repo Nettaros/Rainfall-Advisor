@@ -19,10 +19,11 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                                     alignItems: "center"
                                 }}>
                                 {selected && <Text paddingLeft={20} size={30}>*</Text>}
-                                <Text style={{fontSize: 17, paddingLeft: selected ? 15 : 30}}>
+                                <Text style={{fontSize: 17, paddingLeft: selected ? 15 : 30, paddingBottom: 20, paddingTop: 20}}>
                                     {name}
                                 </Text>
                             </TouchableOpacity>
+                            <View style={{height:1, backgroundColor: "#4f4f4f"}}></View>
                         </View>
                     )
                 })}

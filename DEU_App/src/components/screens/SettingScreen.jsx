@@ -16,33 +16,17 @@ const SettingScreen = () => {
     
 
     useEffect(() => {
-      //async function prepare() {
-        //try{
-          //await SplashScreen.preventAutoHideAsync()
-          getSettings()
-        //}catch (e){
-          //console.warn(e)
-        //}finally{
-          //setReady(true)
-        //}
-      //}
-
-      //prepare()
+      getSettings()
     }, []);
-
-    /*const onLayoutRootView = useCallback(async () => {
-      if(ready){
-        await SplashScreen.hideAsync()
-      }
-    }, [ready])*/
     
     const saveSetting = (key, value) => {
-      AsyncStorage.setItem(key, value);
+      const stringifiedValue = JSON.stringify(value)
+      AsyncStorage.setItem(key, stringifiedValue);
     };
 
     const toMinutes = (seconds) => {
-      var min = seconds/60
-      return toString(min)+" minutos"
+      const min = seconds/60
+      return min +" minutos"
     }
 
     const toSize = (size) => {
@@ -60,7 +44,7 @@ const SettingScreen = () => {
     const settingsOptions = [
       {
         clave: "font",
-        title: 'Fuente',
+        title: "Fuente",
         subTitle: font,
         onPress: () => {
           setFontModalVisible(true);
@@ -69,7 +53,7 @@ const SettingScreen = () => {
       },
       {
         clave: "fontSize",
-        title: 'Tamaño de letra',
+        title: "Tamaño de letra",
         subTitle: toSize(fontSize),
         onPress: () => {
           setFontSizeModalVisible(true);
@@ -77,7 +61,7 @@ const SettingScreen = () => {
       },
       {
         clave: "updateTime",
-        title: 'Tiempo de actualización',
+        title: "Tiempo de actualización",
         subTitle: toMinutes(updateTime),
         onPress: () => {
           setUpdateTimeModalVisible(true);
@@ -88,10 +72,10 @@ const SettingScreen = () => {
     const options = {
       font: [
         {
-          name: 'Arial',
+          name: "Arial",
           selected: font === "Arial",
           onPress: () => {
-            saveSetting('font', 'Arial')
+            saveSetting("font", "Arial")
             setFont("Arial")
             setFontModalVisible(false)
           }
@@ -170,61 +154,63 @@ const SettingScreen = () => {
     const getSettings = () => {
       AsyncStorage.getItem("font").then(data => {
           if(data){
-              setFont(data);
+              setFont(JSON.parse(data));
           }else{
               setFont("Arial")
               const value = JSON.stringify("Arial")
               AsyncStorage.setItem("font", value)
           }
-      }).catch((error) => console.log(error));
-    
+      
+          AsyncStorage.getItem("fontSize").then(data => {
+              if(data){
+                setFontSize(JSON.parse(data));
+              }else{
+                  setFontSize(16)
+                  const value = JSON.stringify(16)
+                  AsyncStorage.setItem("fontSize", value)
+              }
 
-      AsyncStorage.getItem("fontSize").then(data => {
-          if(data){
-            setFontSize(data);
-          }else{
-              setFontSize(16)
-              const value = JSON.stringify(16)
-              AsyncStorage.setItem("fontSize", value)
-          }
-      }).catch((error) => console.log(error));
+              AsyncStorage.getItem("updateTime").then(data => {
+                if(data){
+                  setUpdateTime(JSON.parse(data));
+                }else{
+                    setUpdateTime(900)
+                    const value = JSON.stringify(900)
+                    AsyncStorage.setItem("updateTime", value)
+                }
+                setReady(true)
+              }).catch((error) => console.log(error));
+
+          }).catch((error) => console.log(error));
     
-  
-      AsyncStorage.getItem("updateTime").then(data => {
-          if(data){
-            setFont(updateTime);
-          }else{
-              setUpdateTime(900)
-              const value = JSON.stringify(900)
-              AsyncStorage.setItem("updateTime", value)
-          }
       }).catch((error) => console.log(error));
     };
-
-    /*if(!ready){
-      return null
-    }*/
     
     return (
       <View>
+        {!ready 
+        ? 
+        <View></View>
+        : 
         <SettingsComponent
-          modalVisible={
-            {
-              font: fontModalVisible,
-              fontSize: fontSizeModalVisible,
-              updateTime: updateTimeModalVisible
+            modalVisible={
+              {
+                font: fontModalVisible,
+                fontSize: fontSizeModalVisible,
+                updateTime: updateTimeModalVisible
+              }
             }
-          }
-          setModalVisible={
-            {
-              font: setFontModalVisible, 
-              fontSize: setFontSizeModalVisible, 
-              updateTime: setUpdateTimeModalVisible
+            setModalVisible={
+              {
+                font: setFontModalVisible, 
+                fontSize: setFontSizeModalVisible, 
+                updateTime: setUpdateTimeModalVisible
+              }
             }
-          }
-          settingsOptions={settingsOptions}
-          options={options}
-        />
+            settingsOptions={settingsOptions}
+            options={options}
+          />}
+          
       </View>
 
     );
