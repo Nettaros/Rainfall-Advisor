@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-        fontStyle: "bold",
+        fontWeight: "bold",
         alignSelf:"center"
     },
     bar: {

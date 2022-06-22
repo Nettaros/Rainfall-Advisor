@@ -29,10 +29,10 @@ const Footer = () => {
 export default function DrawerNavigation() {
     return (
         <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} /> }>
-            <Drawer.Screen name="Menu" component={MainScreen}/>
+            <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
-            <Drawer.Screen name="Quienes somos" component={WhoWeAreScreen}/>
+            <Drawer.Screen name="¿Como funciona?" component={WhoWeAreScreen}/>
             <Drawer.Screen name="Ayuda" component={HelpScreen}/>
         </Drawer.Navigator>
     );
@@ -51,13 +51,13 @@ const MenuItem = ({navigation}) =>{
             
             <Separator/>
             <MenuButtonItem
-                text="Menu"
-                onPress={()=> navigation.navigate('Menu')}
+                text="Precipitación"
+                onPress={()=> navigation.navigate('Precipitacion')}
                 
             />
             <Separator/>
             <MenuButtonItem
-                text="Configuracion"
+                text="Configuración"
                 onPress={()=> navigation.navigate('Configuracion')}
                 
             />
@@ -68,8 +68,8 @@ const MenuItem = ({navigation}) =>{
             />
             <Separator/>
             <MenuButtonItem
-                text="Quienes somos"
-                onPress={()=> navigation.navigate('Quienes somos')}
+                text="¿Como funciona?"
+                onPress={()=> navigation.navigate('¿Como funciona?')}
                 
             />
             <Separator/>
