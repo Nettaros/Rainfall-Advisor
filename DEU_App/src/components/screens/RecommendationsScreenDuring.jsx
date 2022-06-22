@@ -11,12 +11,6 @@ const RecoDuringScreen = () => {
                 <Text style={styles.item}>Recomendacion 4</Text>
                 <Text style={styles.item}>Recomendacion 221</Text>
                 <Text style={styles.item}>Recomendacion 2</Text>
-                <Text style={styles.item}>Recomendacion 3</Text>
-                <Text style={styles.item}>Recomendacion 4</Text>
-                <Text style={styles.item}>Recomendacion 5</Text>
-                <Text style={styles.item}>Recomendacion 2</Text>
-                <Text style={styles.item}>Recomendacion 3</Text>
-                <Text style={styles.item}>Recomendacion 4</Text>
             </ScrollView>
         </View>
     )
@@ -27,8 +21,7 @@ export default RecoDuringScreen
 const styles = StyleSheet.create({
     item: {
         fontSize: 18,
-        backgroundColor: "#444",
-        alignSelf: "flex-center",
+        flex: 1,
         borderRadius: 10,
         borderWidth: 2,
         padding: 20,

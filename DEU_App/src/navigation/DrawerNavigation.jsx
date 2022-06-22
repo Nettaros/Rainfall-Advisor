@@ -31,7 +31,7 @@ export default function DrawerNavigation() {
         <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} /> }>
             <Drawer.Screen name="Menu" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
-            <Drawer.Screen name="Recomendacion" component={RecommendationsScreen}/>
+            <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
             <Drawer.Screen name="Quienes somos" component={WhoWeAreScreen}/>
             <Drawer.Screen name="Ayuda" component={HelpScreen}/>
         </Drawer.Navigator>
@@ -63,8 +63,8 @@ const MenuItem = ({navigation}) =>{
             />
             <Separator/>
             <MenuButtonItem
-                text="Recomendacion"
-                onPress={()=> navigation.navigate('Recomendacion')}
+                text="Recomendaciones"
+                onPress={()=> navigation.navigate('Recomendaciones')}
                 
             />
             <Separator/>
@@ -110,10 +110,10 @@ const style = StyleSheet.create({
         fontSize: 25,
         marginEnd:15,
         padding:15,
-        fontStyle: 'bold',
+        fontWeight: 'bold',
     },
     footerText:{
-        frontSize: 10,
+        fontSize: 10,
         color:'#ffffff',
         padding:15,
         
