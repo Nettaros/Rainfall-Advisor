@@ -2,7 +2,7 @@ import React from "react";
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import {StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 //Screens
-import SettingScreen from "../components/screens/SettingScreen.jsx";
+import SettingScreen from "../components/screens/SettingScreen";
 import RecommendationsScreen from "../components/screens/RecommendationsScreen";
 import WhoWeAreScreen from "../components/screens/WhoWeAreScreen";
 import HelpScreen from "../components/screens/HelpScreen";
@@ -31,7 +31,7 @@ export default function DrawerNavigation() {
         <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} /> }>
             <Drawer.Screen name="Menu" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
-            <Drawer.Screen name="Recomendacion" component={RecommendationsScreen}/>
+            <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
             <Drawer.Screen name="Quienes somos" component={WhoWeAreScreen}/>
             <Drawer.Screen name="Ayuda" component={HelpScreen}/>
         </Drawer.Navigator>
@@ -63,9 +63,8 @@ const MenuItem = ({navigation}) =>{
             />
             <Separator/>
             <MenuButtonItem
-                text="Recomendacion"
-                onPress={()=> navigation.navigate('Recomendacion')}
-                
+                text="Recomendaciones"
+                onPress={()=> navigation.navigate('Recomendaciones')}  
             />
             <Separator/>
             <MenuButtonItem
@@ -110,10 +109,10 @@ const style = StyleSheet.create({
         fontSize: 25,
         marginEnd:15,
         padding:15,
-        fontStyle: 'bold',
+        fontWeight: 'bold',
     },
     footerText:{
-        frontSize: 10,
+        fontSize: 10,
         color:'#ffffff',
         padding:15,
         

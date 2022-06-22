@@ -18,8 +18,7 @@ export default RecoBeforeScreen
 const styles = StyleSheet.create({
     item: {
         fontSize: 18,
-        backgroundColor: "#444",
-        alignSelf: "flex-center",
+        flex: 1,
         borderRadius: 10,
         borderWidth: 2,
         padding: 20,

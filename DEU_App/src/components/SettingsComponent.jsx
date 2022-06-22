@@ -4,7 +4,6 @@ import AppModal from "../components/AppModal"
 
 
 const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, options}) => { 
-
     const returnBody = (clave) =>{
         return(
             <View> 
