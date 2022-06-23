@@ -2,6 +2,8 @@ import React from 'react'
 import {View, Text} from 'react-native'
 import HelpComponent from '../HelpComponent'
 
+
+
 const HelpScreen = () => {
     return (
         <View>

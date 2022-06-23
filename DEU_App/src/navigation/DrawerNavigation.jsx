@@ -1,6 +1,7 @@
 import React from "react";
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import {StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import {useTheme} from '@react-navigation/native';
 //Screens
 import SettingScreen from "../components/screens/SettingScreen";
 import RecommendationsScreen from "../components/screens/RecommendationsScreen";
@@ -11,24 +12,27 @@ import MainScreen from "../components/screens/MainScreen";
 import MenuButtonItem from "../components/MenuButtonItem";
 
 
+
+
+
 const Drawer = createDrawerNavigator()
 
-const Separator = () =>{
+const Separator = (color) =>{
     return(
-        <View style={style.separator} />
+        <View style={[style.separator, {borderBottomColor:color}]} />
     );
 }
 
-const Footer = () => {
+const Footer = (color) => {
     return (
-        <Text style={style.footerText}>2020 - Diseño de Experiencia de Usuario</Text>  
+        <Text style={[style.footerText, {color: color}]}>2020 - Diseño de Experiencia de Usuario</Text>  
     );
   }
   
 
 export default function DrawerNavigation() {
     return (
-        <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} /> }>
+        <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} />}>
             <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
@@ -39,48 +43,65 @@ export default function DrawerNavigation() {
 }
 
 const MenuItem = ({navigation}) =>{
+    const {colors} = useTheme();
     return (
 
-        <DrawerContentScrollView
-            style = {style.container}> 
+        <DrawerContentScrollView 
+            style = {[style.container, {backgroundColor: colors.background}]}> 
             
             <TouchableOpacity onPress={()=>navigation.toggleDrawer()}>
-                <Text style={style.text}>X</Text>
+                <Text style={[style.text, {color: colors.text}]}>X</Text>
             </TouchableOpacity>
             
             
-            <Separator/>
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+
             <MenuButtonItem
                 text="Precipitación"
                 onPress={()=> navigation.navigate('Precipitacion')}
                 
             />
-            <Separator/>
+
+            
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+
             <MenuButtonItem
                 text="Configuración"
                 onPress={()=> navigation.navigate('Configuracion')}
                 
             />
-            <Separator/>
+
+            
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+
             <MenuButtonItem
                 text="Recomendaciones"
                 onPress={()=> navigation.navigate('Recomendaciones')}
                 
             />
-            <Separator/>
+
+            
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+
             <MenuButtonItem
                 text="¿Como funciona?"
                 onPress={()=> navigation.navigate('¿Como funciona?')}
                 
             />
-            <Separator/>
+
+            
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+
             <MenuButtonItem
                 text="Ayuda"
                 onPress={()=> navigation.navigate('Ayuda')}
                 
             />
-            <Separator/>
-            <Footer/>
+
+            
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+            
+            <Text style={[style.footerText, {color: colors.text}]}>2020 - Diseño de Experiencia de Usuario</Text>  
         </DrawerContentScrollView>
         
         
@@ -92,21 +113,12 @@ const style = StyleSheet.create({
     
     container: {
         padding: 15,
-        backgroundColor: '#000000',
        
     },
-
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color:'#ffffff'
-    },
     separator:{
-        borderBottomColor: '#ffffff',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     text: {
-        color:'#ffffff',
         fontSize: 25,
         marginEnd:15,
         padding:15,
@@ -114,10 +126,8 @@ const style = StyleSheet.create({
     },
     footerText:{
         fontSize: 10,
-        color:'#ffffff',
         padding:15,
-        
-
+    
     },
 
 })

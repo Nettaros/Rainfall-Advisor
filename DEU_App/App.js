@@ -1,33 +1,17 @@
-import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react';
-//import "react-native-gesture-handler"
+import React, {useState, useEffect} from 'react';
 import { NavigationContainer }  from '@react-navigation/native';
 import DrawerNavigation from './src/navigation/DrawerNavigation';
-import {StyleSheet, Text} from 'react-native'
+import themeChanger from './src/components/settings/themeChanger';
 
 
 
 export default function App() {
+  const theme = themeChanger();
+
   return (
-    <LinearGradient colors={['rgba(0, 91, 234,0.9)','rgba(0, 198, 251,0.9)','rgba(0, 91, 234,0.9)']} style={style.background}>
-      <NavigationContainer>
+      <NavigationContainer theme={theme}>
           <DrawerNavigation/>
       </NavigationContainer>
-    </LinearGradient>
   );
 }
-
-const style = StyleSheet.create({
-  background: {
-    flex:1
-  },
-  text:{
-    fontSize:10,
-    padding: 15,
-    position: 'absolute',
-    bottom: 0,
-  },
-
-  
-})
 

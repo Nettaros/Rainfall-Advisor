@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, TouchableOpacity, Text, Modal, ScrollView} from 'react-native'
 
+
 const AppModal = ({modalVisible, setModalVisible, modalBody, title}) => {
     return (
         <Modal visible={modalVisible} animationType="slide">

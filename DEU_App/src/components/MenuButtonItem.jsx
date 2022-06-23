@@ -1,15 +1,16 @@
 import React from 'react'
 import {Text, TouchableOpacity,StyleSheet, View} from 'react-native'
-
+import {useTheme} from '@react-navigation/native';
 
 const MenuButtonItem = ({text,onPress}) =>{
+    const {colors} = useTheme();
     return (
         <TouchableOpacity 
             onPress={onPress}
             style={style.buttonContainer}
         >
             
-            <Text style={style.text}>{text}</Text>
+            <Text style={[style.text, {color: colors.text}]}>{text}</Text>
         </TouchableOpacity>
         
     );
@@ -22,7 +23,6 @@ const style = StyleSheet.create({
 
     },
     text: {
-        color:'#ffffff',
         fontSize: 20,
         marginEnd:15,
     },

@@ -1,12 +1,12 @@
 import React from 'react'
 import {View, Text} from 'react-native'
+import {useTheme} from '@react-navigation/native';
 
 const WhoWeAre = () => {
+    const {colors} = useTheme();
     return (
         <View>
-            <Text>
-                Quienes somos
-            </Text>
+            <Text style={{color: colors.text}}>Quienes somos</Text>
         </View>
     )
 }

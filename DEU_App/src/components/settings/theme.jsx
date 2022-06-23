@@ -1,11 +1,6 @@
 import Settings from "./Settings.jsx"
 
 const theme = {
-    colors: {
-        textPrimary: "",
-        textSecondary: "",
-        primarty: ""
-    },
     fontSizes: {
         body: Settings.fontSizes,
         subheading: Settings.fontSizes+2,

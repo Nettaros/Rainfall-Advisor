@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import {Text, View , StyleSheet, TouchableHighlight} from 'react-native'
+import {useTheme} from '@react-navigation/native';
 
 const HelpComponent = ({title, info}) => {
+    const {colors} = useTheme();
     const [show, setShow] = useState(true)
 
-    const text = (show ? <Text></Text> : <Text style={styles.answer}>{info}</Text>)
+    const text = (show ? <Text></Text> : <Text style={[styles.answer, {color: colors.text}]}>{info}</Text>)
 
     return (
         <View>
             <TouchableHighlight>
-                <Text style={styles.question} onPress={() => {
+                <Text style={[styles.question, {color: colors.text}]} onPress={() => {
                     setShow(!show)
                 }}>{title}</Text>
             </TouchableHighlight>

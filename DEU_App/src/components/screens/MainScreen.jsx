@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
-import { LinearGradient } from 'expo-linear-gradient'
+import {useTheme} from '@react-navigation/native';
 
 
 
@@ -11,6 +11,7 @@ const Main = () => {
   const updateMin = 3;
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
+  const {colors} = useTheme();
  
   const fetchPrecipitacion = async () => {
     //const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
@@ -60,18 +61,18 @@ const Main = () => {
 
 
   return (
-    <LinearGradient colors={['rgba(0, 91, 234,0.9)','rgba(0, 198, 251,0.9)','rgba(0, 91, 234,0.9)']} style={styles.background}>
+    <View>
       <View style={styles.container}>
         <View style={styles.title_container}>
-          <Text style={styles.title}>Nivel de precipitación</Text>
-          <Text style={styles.place}>La Plata</Text>
+          <Text style={[styles.title, {color: colors.text}]}>Nivel de precipitación</Text>
+          <Text style={[styles.place, {color: colors.text}]}>La Plata</Text>
         </View>
         
-        <View style={[styles.background_precipitation]}>
+        <View style={[styles.background_precipitation, {backgroundColor: colors.primary}]}>
           
           <View style={[styles.container_pecipitation, styles.row]}>
-            <Text style={styles.data}>{precipitacion}</Text>
-            <Text style={styles.data}>mm</Text>
+            <Text style={[styles.data, {color: colors.text}]}>{precipitacion}</Text>
+            <Text style={[styles.data, {color:colors.text}]}>mm</Text>
           </View>
           <RNSpeedometer 
             value={precipitacion} 
@@ -84,22 +85,22 @@ const Main = () => {
             labels={[
               {
                 name: 'Sin riesgo',
-                labelColor: 'black',
+                labelColor: colors.text,
                 activeBarColor: 'green'
               },
               {
                 name: 'Bajo riesgo',
-                labelColor: 'black',
+                labelColor: colors.text,
                 activeBarColor: 'yellow'
               },
               {
                 name: 'Riesgo intermedio',
-                labelColor: 'black',
+                labelColor: colors.text,
                 activeBarColor: 'orange'
               },
               {
                 name: 'Alto riesgo',
-                labelColor: 'black',
+                labelColor: colors.text,
                 activeBarColor: 'red'
               }
             ]}
@@ -107,12 +108,12 @@ const Main = () => {
 
         </View>
         <View style={[styles.info_container, styles.row]}>
-          <Text style={styles.info}>Ultima actualización: </Text>
-          <Text style={styles.info}>{minutos} minutos</Text>
+          <Text style={[styles.info, {color: colors.text}]}>Ultima actualización: </Text>
+          <Text style={[styles.info, {color: colors.text}]}>{minutos} minutos</Text>
         </View>
       
       </View>
-    </LinearGradient>
+    </View>
   )
 }
 
@@ -153,7 +154,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   background_precipitation:{
-    backgroundColor: 'rgba(255,255,255,0.20)',
     borderRadius: 15,
     paddingBottom:100
     
