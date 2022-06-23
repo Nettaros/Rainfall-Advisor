@@ -27,9 +27,7 @@ const AppModal = ({modalVisible, setModalVisible, modalBody, title}) => {
 
                         </View>
                         <View style={{height:1, backgroundColor: "#4f4f4f"}} />
-                        <View>
-                            {modalBody}
-                        </View>
+                        {modalBody}
                     </ScrollView>
                 </View>
         </Modal>

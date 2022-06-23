@@ -76,8 +76,7 @@ const MenuItem = ({navigation}) =>{
 
             <MenuButtonItem
                 text="Recomendaciones"
-                onPress={()=> navigation.navigate('Recomendaciones')}
-                
+                onPress={()=> navigation.navigate('Recomendaciones')}  
             />
 
             
