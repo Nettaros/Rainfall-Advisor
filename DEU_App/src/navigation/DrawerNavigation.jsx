@@ -10,29 +10,15 @@ import HelpScreen from "../components/screens/HelpScreen";
 import MainScreen from "../components/screens/MainScreen";
 //Boton generico
 import MenuButtonItem from "../components/MenuButtonItem";
-
-
-
-
-
+//Importamos tema
+import Theme from "../components/settings/theme";
 const Drawer = createDrawerNavigator()
 
-const Separator = (color) =>{
-    return(
-        <View style={[style.separator, {borderBottomColor:color}]} />
-    );
-}
-
-const Footer = (color) => {
-    return (
-        <Text style={[style.footerText, {color: color}]}>2020 - Diseño de Experiencia de Usuario</Text>  
-    );
-  }
-  
-
 export default function DrawerNavigation() {
+    const {colors} = useTheme();
+    
     return (
-        <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} />}>
+        <Drawer.Navigator screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
             <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
@@ -44,13 +30,14 @@ export default function DrawerNavigation() {
 
 const MenuItem = ({navigation}) =>{
     const {colors} = useTheme();
+    const theme = Theme();
     return (
 
         <DrawerContentScrollView 
             style = {[style.container, {backgroundColor: colors.background}]}> 
             
             <TouchableOpacity onPress={()=>navigation.toggleDrawer()}>
-                <Text style={[style.text, {color: colors.text}]}>X</Text>
+                <Text style={[style.text, {color: colors.text, fontSize: theme.fontSizes.subheading}]}>X</Text>
             </TouchableOpacity>
             
             
@@ -58,19 +45,15 @@ const MenuItem = ({navigation}) =>{
 
             <MenuButtonItem
                 text="Precipitación"
-                onPress={()=> navigation.navigate('Precipitacion')}
-                
+                onPress={()=> navigation.navigate('Precipitacion')}  
             />
-
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
                 text="Configuración"
-                onPress={()=> navigation.navigate('Configuracion')}
-                
+                onPress={()=> navigation.navigate('Configuracion')}  
             />
-
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
@@ -78,26 +61,21 @@ const MenuItem = ({navigation}) =>{
                 text="Recomendaciones"
                 onPress={()=> navigation.navigate('Recomendaciones')}  
             />
-
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
                 text="¿Como funciona?"
-                onPress={()=> navigation.navigate('¿Como funciona?')}
-                
+                onPress={()=> navigation.navigate('¿Como funciona?')}  
             />
-
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
                 text="Ayuda"
-                onPress={()=> navigation.navigate('Ayuda')}
-                
+                onPress={()=> navigation.navigate('Ayuda')}  
             />
 
-            
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
             
             <Text style={[style.footerText, {color: colors.text}]}>2020 - Diseño de Experiencia de Usuario</Text>  
@@ -118,7 +96,6 @@ const style = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     text: {
-        fontSize: 25,
         marginEnd:15,
         padding:15,
         fontWeight: 'bold',
@@ -126,7 +103,5 @@ const style = StyleSheet.create({
     footerText:{
         fontSize: 10,
         padding:15,
-    
     },
-
 })

@@ -1,16 +1,17 @@
 import React from 'react'
 import {Text, TouchableOpacity,StyleSheet, View} from 'react-native'
 import {useTheme} from '@react-navigation/native';
+import Theme from "./settings/theme"
 
 const MenuButtonItem = ({text,onPress}) =>{
     const {colors} = useTheme();
+    const theme = Theme()
     return (
         <TouchableOpacity 
             onPress={onPress}
             style={style.buttonContainer}
         >
-            
-            <Text style={[style.text, {color: colors.text}]}>{text}</Text>
+            <Text style={[style.text, {color: colors.text, margin:10,fontSize: theme.fontSizes.subheading}]}>{text}</Text>
         </TouchableOpacity>
         
     );
@@ -18,13 +19,9 @@ const MenuButtonItem = ({text,onPress}) =>{
 const style = StyleSheet.create({
     buttonContainer:{
         alignItems:'center',
-        padding:10,
+        padding:1,
         flexDirection:'row',
 
-    },
-    text: {
-        fontSize: 20,
-        marginEnd:15,
     },
    
     

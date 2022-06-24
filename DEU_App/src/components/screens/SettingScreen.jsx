@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, Switch} from 'react-native'
-import { EventRegister } from 'react-native-event-listeners'
+import {View} from 'react-native'
 import SettingsComponent from '../SettingsComponent';
-import {useTheme} from '@react-navigation/native';
+import { EventRegister } from 'react-native-event-listeners'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {useTheme} from '@react-navigation/native';
+
 //import * as SplashScreen from "expo-splash-screen"
 //import { useCallback } from 'react/cjs/react.production.min';
 
@@ -12,10 +13,12 @@ const SettingScreen = () => {
     const [fontSize, setFontSize] = React.useState(null);
     const [font, setFont] = React.useState(null);
     const [updateTime, setUpdateTime] = React.useState(null)
+    const [theme, setTheme] = React.useState(null);
     const [fontModalVisible, setFontModalVisible] = React.useState(false);
     const [fontSizeModalVisible, setFontSizeModalVisible] = React.useState(false);
     const [updateTimeModalVisible, setUpdateTimeModalVisible] = React.useState(false);
-    const [darkMode, setDarkMode] = useState(false); 
+    const [themeVisible, setThemeVisible] = React.useState(false);
+
     const {colors} = useTheme();
     
 
@@ -44,7 +47,7 @@ const SettingScreen = () => {
         return "Grande"
       }
     }
-  
+
     const settingsOptions = [
       {
         clave: "font",
@@ -70,6 +73,14 @@ const SettingScreen = () => {
         onPress: () => {
           setUpdateTimeModalVisible(true);
         },
+      },
+      {
+          clave: "theme",
+          title: "Tema",
+          subTitle: (theme === "light")?"Tema claro":"Tema oscuro" ,
+          onPress: () => {
+            setThemeVisible(true);
+          }
       }
     ];
   
@@ -152,6 +163,28 @@ const SettingScreen = () => {
             setUpdateTimeModalVisible(false)
           }
         }
+      ],
+      theme:[
+        {
+          name: "Tema claro",
+          selected: theme === "light",
+          onPress: () => {
+            saveSetting("theme","light")
+            setTheme("light")
+            EventRegister.emit("changeTheme", false);
+            setThemeVisible(false)
+          }
+        },
+        {
+          name: "Tema oscuro",
+          selected: theme === "dark",
+          onPress: () => {
+            saveSetting("theme","dark")
+            setTheme("dark")
+            EventRegister.emit("changeTheme", true);
+            setThemeVisible(false)
+          }
+        }
       ]
     };
   
@@ -182,7 +215,19 @@ const SettingScreen = () => {
                     const value = JSON.stringify(900)
                     AsyncStorage.setItem("updateTime", value)
                 }
-                setReady(true)
+                
+                AsyncStorage.getItem("theme").then(data =>{
+                  if (data){
+                    setTheme(JSON.parse(data));
+                  }else{
+                    setTheme("light")
+                    const value = JSON.stringify("light")
+                    AsyncStorage.setItem("theme", value)
+                  }
+
+                  setReady(true)
+                }).catch((error) => console.log(error));
+            
               }).catch((error) => console.log(error));
 
           }).catch((error) => console.log(error));
@@ -191,42 +236,33 @@ const SettingScreen = () => {
     };
     
     return (
-      <View>
+      <View style={{backgroundColor:colors.background}}>
          
         {!ready 
         ? 
-        <View></View>
+        <View style={{backgroundColor:colors.background}}></View>
         : 
-        
-        <View>
-
-          <Switch value={darkMode} onValueChange={(value) => {
-                  setDarkMode(value);
-                  EventRegister.emit(
-                      "changeTheme", value);
-              }}/>
-           <SettingsComponent
-            modalVisible={
-              {
-                font: fontModalVisible,
-                fontSize: fontSizeModalVisible,
-                updateTime: updateTimeModalVisible
+        <SettingsComponent
+            
+              modalVisible={
+                {
+                  font: fontModalVisible,
+                  fontSize: fontSizeModalVisible,
+                  updateTime: updateTimeModalVisible,
+                  theme: themeVisible
+                }
               }
-            }
-            setModalVisible={
-              {
-                font: setFontModalVisible, 
-                fontSize: setFontSizeModalVisible, 
-                updateTime: setUpdateTimeModalVisible
+              setModalVisible={
+                {
+                  font: setFontModalVisible, 
+                  fontSize: setFontSizeModalVisible, 
+                  updateTime: setUpdateTimeModalVisible,
+                  theme: setThemeVisible
+                }
               }
-            }
-            settingsOptions={settingsOptions}
-            options={options}
-          />
-        
-        </View>
-
-       
+              settingsOptions={settingsOptions}
+              options={options}
+          />     
         }  
       </View>
 

@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
-
-
+import Theme from '../settings/theme.jsx';
 
 const Main = () => {
   const [precipitacion, setPrecipitacion] = useState(0.0)
@@ -12,7 +11,10 @@ const Main = () => {
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
   const {colors} = useTheme();
- 
+  const theme= Theme();
+  
+
+
   const fetchPrecipitacion = async () => {
     //const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
     //const json = await response.json()
@@ -61,68 +63,62 @@ const Main = () => {
 
 
   return (
-    <View>
-      <View style={styles.container}>
-        <View style={styles.title_container}>
-          <Text style={[styles.title, {color: colors.text}]}>Nivel de precipitación</Text>
-          <Text style={[styles.place, {color: colors.text}]}>La Plata</Text>
+    <View style={styles.container}>
+        <View style={{alignItems: "center"}}>
+          <Text style={{fontSize: theme.fontSizes.title,fontStyle: "bold", color:colors.text}}>Nivel de precipitación</Text>
+          <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
         
-        <View style={[styles.background_precipitation, {backgroundColor: colors.primary}]}>
-          
-          <View style={[styles.container_pecipitation, styles.row]}>
-            <Text style={[styles.data, {color: colors.text}]}>{precipitacion}</Text>
-            <Text style={[styles.data, {color:colors.text}]}>mm</Text>
-          </View>
+        <View style={{backgroundColor:colors.primary, borderRadius:10}}>
           <RNSpeedometer 
-            value={precipitacion} 
-            size={150} 
-            maxValue={100}
-            minValue={0}
-            allowedDecimals={1}
-            defaultValue={0}
-            labelNoteStyle={styles.speedometer}
-            labels={[
-              {
-                name: 'Sin riesgo',
-                labelColor: colors.text,
-                activeBarColor: 'green'
-              },
-              {
-                name: 'Bajo riesgo',
-                labelColor: colors.text,
-                activeBarColor: 'yellow'
-              },
-              {
-                name: 'Riesgo intermedio',
-                labelColor: colors.text,
-                activeBarColor: 'orange'
-              },
-              {
-                name: 'Alto riesgo',
-                labelColor: colors.text,
-                activeBarColor: 'red'
-              }
-            ]}
-            />
+              value={precipitacion} 
+              size={150} 
+              maxValue={100}
+              minValue={0}
+              allowedDecimals={0}
+              defaultValue={0}
+              labelNoteStyle={{fontSize:theme.fontSizes.body,justifyContent:"center", color:colors.text}}
+              labels={[
+                {
+                  name: 'Sin riesgo',
+                  labelColor: colors.text,
+                  activeBarColor: 'green'
+                },
+                {
+                  name: 'Bajo riesgo',
+                  labelColor: colors.text,
+                  activeBarColor: 'yellow'
+                },
+                {
+                  name: 'Riesgo intermedio',
+                  labelColor: colors.text,
+                  activeBarColor: 'orange'
+                },
+                {
+                  name: 'Alto riesgo',
+                  labelColor: colors.text,
+                  activeBarColor: 'red'
+                }
+              ]}
+              />
+            <View style={[styles.container_pecipitation, styles.row]}>
+              <Text style={{fontSize: theme.fontSizes.body, fontStyle: "bold",color: colors.text}}>{precipitacion}</Text>
+              <Text style={{fontStyle: "bold",fontSize:theme.fontSizes.body ,color:colors.text}}>mm</Text>
+            </View>
+          </View>
 
-        </View>
         <View style={[styles.info_container, styles.row]}>
-          <Text style={[styles.info, {color: colors.text}]}>Ultima actualización: </Text>
-          <Text style={[styles.info, {color: colors.text}]}>{minutos} minutos</Text>
+          <Text style={{fontSize: theme.fontSizes.body,color: colors.text}}>Ultima actualización: </Text>
+          <Text style={{fontSize: theme.fontSizes.body,color: colors.text}}>{minutos} minutos</Text>
         </View>
       
       </View>
-    </View>
   )
 }
 
 export default Main
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1
-  },
   container: {
     alignItems: "center", 
     justifyContent: "space-between", 
@@ -131,42 +127,13 @@ const styles = StyleSheet.create({
   info_container: {
     alignContent: "space-around"
   },
-  title_container: {
-    alignItems: "center"
-  },
-  title: {
-    fontSize: 36, 
-    fontStyle: "bold"
-  },
-  place: {
-    fontSize: 28, 
-    fontStyle: "italic"
-  },
-  data: {
-    fontSize: 72, 
-    fontStyle: "bold",
-    
-  },
-  info: {
-    fontSize: 20
-  },
   row: {
     flexDirection: "row",
-  },
-  background_precipitation:{
-    borderRadius: 15,
-    paddingBottom:100
-    
   },
   container_pecipitation:{
     margin: 50,
     marginTop: 80,
     marginBottom: 20,
-   
-  },
-  speedometer:{
-    fontSize:20,
-    justifyContent:"center"
-  },
-  
+    padding:1
+  }
 })
