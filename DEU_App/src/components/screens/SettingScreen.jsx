@@ -54,6 +54,7 @@ const SettingScreen = () => {
         onPress: () => {
           setFontSizeModalVisible(true);
         },
+        hint: "Tamaño de letra"  
       },
       {
         clave: "updateTime",
@@ -62,6 +63,7 @@ const SettingScreen = () => {
         onPress: () => {
           setUpdateTimeModalVisible(true);
         },
+        hint: "Tiempo de actualización" 
       },
       {
           clave: "theme",
@@ -69,7 +71,8 @@ const SettingScreen = () => {
           subTitle: (theme === "light")?"Tema claro":"Tema oscuro" ,
           onPress: () => {
             setThemeVisible(true);
-          }
+          },
+          hint: "Tema claro u oscuro" 
       }
     ];
   
@@ -82,7 +85,8 @@ const SettingScreen = () => {
             saveSetting('fontSize', 16)
             setFontSize(16)
             setFontSizeModalVisible(false)
-          }
+          },
+          hint: "Letra chica" 
         },
         {
           name: "Mediana",
@@ -91,7 +95,8 @@ const SettingScreen = () => {
             saveSetting("fontSize", 20)
             setFontSize(20)
             setFontSizeModalVisible(false)
-          }
+          },
+          hint: "Letra mediana" 
           
         },
         {
@@ -101,7 +106,8 @@ const SettingScreen = () => {
             saveSetting("fontSize", 24)
             setFontSize(24)
             setFontSizeModalVisible(false)
-          }
+          },
+          hint: "Letra grande" 
         }
       ],
       updateTime: [
@@ -112,7 +118,8 @@ const SettingScreen = () => {
             saveSetting("updateTime", 900)
             setUpdateTime(900)
             setUpdateTimeModalVisible(false)
-          }
+          },
+          hint: "Tiempo de actualización cada 15 minutos" 
         },
         {
           name: "30 minutos",
@@ -121,7 +128,8 @@ const SettingScreen = () => {
             saveSetting("updateTime", 1800)
             setUpdateTime(1800)
             setUpdateTimeModalVisible(false)
-          }
+          },
+          hint: "Tiempo de actualización cada 30 minutos" 
         },
         {
           name: "45 minutos",
@@ -130,7 +138,8 @@ const SettingScreen = () => {
             saveSetting("updateTime", 2700)
             setUpdateTime(2700)
             setUpdateTimeModalVisible(false)
-          }
+          },
+          hint: "Tiempo de actualización cada 45 minutos" 
         }
       ],
       theme:[
@@ -142,7 +151,8 @@ const SettingScreen = () => {
             setTheme("light")
             EventRegister.emit("changeTheme", false);
             setThemeVisible(false)
-          }
+          },
+          hint: "Tema claro" 
         },
         {
           name: "Tema oscuro",
@@ -152,7 +162,8 @@ const SettingScreen = () => {
             setTheme("dark")
             EventRegister.emit("changeTheme", true);
             setThemeVisible(false)
-          }
+          },
+          hint: "Tema oscuro" 
         }
       ]
     };

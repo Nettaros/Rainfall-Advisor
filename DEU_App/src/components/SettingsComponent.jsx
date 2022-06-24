@@ -9,11 +9,13 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
     const theme= Theme();
     const returnBody = (clave) =>{
         return(
-            <View> 
-                {options[clave].map(({name, selected, onPress}) => {
+            <View accessible={true}> 
+                {options[clave].map(({name, selected, onPress,hint}) => {
                     return(
                         <View key={name}>
                             <TouchableOpacity
+                                accessibilityRole="button"
+                                accessibilityHint={hint}
                                 onPress={onPress}
                                 style={{
                                     flexDirection: "row",
@@ -34,9 +36,9 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
     }
 
     return (
-        <View >            
+        <View accessible={true}>            
             <ScrollView style={{backgroundColor: colors.background}} >
-                {settingsOptions.map(({clave, title, subTitle, onPress}) => 
+                {settingsOptions.map(({clave, title, subTitle, onPress, hint}) => 
                     <View key={clave}>
                         <AppModal
                         modalVisible={modalVisible[clave]}
@@ -45,7 +47,7 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                             returnBody(clave)
                         }
                         setModalVisible={setModalVisible[clave]}/>
-                        <TouchableOpacity onPress={onPress}>
+                        <TouchableOpacity onPress={onPress} accessibilityRole="button" accessibilityHint={hint}>
                             <View style={{
                                 paddingTop: 20,
                                 paddingLeft: 20,

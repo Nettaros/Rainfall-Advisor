@@ -17,7 +17,7 @@ export default function DrawerNavigation() {
     const {colors} = useTheme();
     
     return (
-        <Drawer.Navigator screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
+        <Drawer.Navigator accesibilyRole="menu" screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
             <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
@@ -34,7 +34,7 @@ const MenuItem = ({navigation}) =>{
         <DrawerContentScrollView 
             style = {[style.container, {backgroundColor: colors.background}]}> 
             
-            <TouchableOpacity onPress={()=>navigation.toggleDrawer()}>
+            <TouchableOpacity accessibilityRole="button" accessibilityHint="Cerrar menú" onPress={()=>navigation.toggleDrawer()}>
                 <Text style={[style.text, {color: colors.text, fontSize: theme.fontSizes.subheading}]}>X</Text>
             </TouchableOpacity>
             
@@ -43,7 +43,8 @@ const MenuItem = ({navigation}) =>{
 
             <MenuButtonItem
                 text="Precipitación"
-                onPress={()=> navigation.navigate('Precipitacion')}  
+                onPress={()=> navigation.navigate('Precipitacion')}
+                hint="Nivel de precipitación en La Plata"  
             />
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
@@ -51,13 +52,15 @@ const MenuItem = ({navigation}) =>{
             <MenuButtonItem
                 text="Configuración"
                 onPress={()=> navigation.navigate('Configuracion')}  
+                hint="Configuración de la aplicación"  
             />
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
                 text="Recomendaciones"
-                onPress={()=> navigation.navigate('Recomendaciones')}  
+                onPress={()=> navigation.navigate('Recomendaciones')} 
+                hint="Recomendaciones sobre que hacer antes, durante y después de una inundación"   
             />
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
@@ -65,13 +68,15 @@ const MenuItem = ({navigation}) =>{
             <MenuButtonItem
                 text="¿Como funciona?"
                 onPress={()=> navigation.navigate('¿Como funciona?')}  
+                hint="Información sobre la aplicación"  
             />
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
                 text="Ayuda"
-                onPress={()=> navigation.navigate('Ayuda')}  
+                onPress={()=> navigation.navigate('Ayuda')} 
+                hint=""   
             />
 
             <View style={[style.separator, {borderBottomColor:colors.text}]} />

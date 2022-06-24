@@ -7,7 +7,7 @@ const AppModal = ({modalVisible, setModalVisible, modalBody, title}) => {
     const {colors} = useTheme();
     const theme = Theme();
     return (
-        <Modal visible={modalVisible} animationType="slide" style={{backgroundColor:colors.background}}>
+        <Modal acesible={true} visible={modalVisible} animationType="slide" style={{backgroundColor:colors.background}}>
                 <View style={{backgroundColor: colors.background, flex:1}}>
                     <ScrollView style={{backgroundColor:colors.background}}>
                         <View style={{
@@ -18,7 +18,7 @@ const AppModal = ({modalVisible, setModalVisible, modalBody, title}) => {
                             justifyContent: "space-between",
                             background:colors.background
                         }}>
-                            <TouchableOpacity onPress={()=>setModalVisible(false)}>
+                            <TouchableOpacity accessibilityLabel='Cerrar' onPress={()=>setModalVisible(false)}>
                                 <Text style={[{fontSize: theme.fontSizes.body ,color: colors.text}]}>X</Text>
                             </TouchableOpacity>
                             

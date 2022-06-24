@@ -18,8 +18,6 @@ const Main = () => {
   const {colors} = useTheme();
   const theme= Theme();
   
-
-
   const fetchPrecipitacion = async () => {
     //const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
     //const json = await response.json()
@@ -71,14 +69,15 @@ const Main = () => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} accessible={true}>
         <View style={{alignItems: "center"}}>
           <Text style={{fontSize: theme.fontSizes.title,fontStyle: "bold", color:colors.text}}>Nivel de precipitación</Text>
           <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
         
         <View style={{backgroundColor:colors.primary, borderRadius:10}}>
-          <RNSpeedometer 
+          <RNSpeedometer
+              accessibleRole="image"
               value={precipitacion} 
               size={150} 
               maxValue={100}
