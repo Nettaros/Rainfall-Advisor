@@ -32,8 +32,8 @@ const Main = () => {
   const handleNotification = () => {
     Notification.scheduleNotificationAsync({
       content: {
-        title: "Notificacion local",
-        body: "Esta es una notificacion!, Funciona!"
+        title: "Esta lloviendo mucho!",
+        body: "La lluvia esta pasando los 50mm en este momento, estate atento!"
       },
       trigger: null
     })
@@ -57,7 +57,7 @@ const Main = () => {
   })
 
   useEffect(() => {
-    if(precipitacion > 60){
+    if(precipitacion > 50){
       handleNotification()
     }
   }, [precipitacion])
