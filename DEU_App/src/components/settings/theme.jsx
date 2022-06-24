@@ -1,5 +1,5 @@
 
-import settings from "./settings.jsx"
+import settings from "./Settings.jsx"
 
 export default function Theme(){
     const setting = settings()

@@ -5,8 +5,7 @@ import {useTheme} from '@react-navigation/native';
 //Screens
 import SettingScreen from "../components/screens/SettingScreen";
 import RecommendationsScreen from "../components/screens/RecommendationsScreen";
-import WhoWeAreScreen from "../components/screens/WhoWeAreScreen";
-import HelpScreen from "../components/screens/HelpScreen";
+import HowItWorksScreen from "../components/screens/HowItWorksScreen";
 import MainScreen from "../components/screens/MainScreen";
 //Boton generico
 import MenuButtonItem from "../components/MenuButtonItem";
@@ -22,8 +21,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
-            <Drawer.Screen name="¿Como funciona?" component={WhoWeAreScreen}/>
-            <Drawer.Screen name="Ayuda" component={HelpScreen}/>
+            <Drawer.Screen name="¿Como funciona?" component={HowItWorksScreen}/>
         </Drawer.Navigator>
     );
 }

@@ -11,10 +11,8 @@ import {useTheme} from '@react-navigation/native';
 const SettingScreen = () => {
     const [ready, setReady] = useState(false)
     const [fontSize, setFontSize] = React.useState(null);
-    const [font, setFont] = React.useState(null);
     const [updateTime, setUpdateTime] = React.useState(null)
     const [theme, setTheme] = React.useState(null);
-    const [fontModalVisible, setFontModalVisible] = React.useState(false);
     const [fontSizeModalVisible, setFontSizeModalVisible] = React.useState(false);
     const [updateTimeModalVisible, setUpdateTimeModalVisible] = React.useState(false);
     const [themeVisible, setThemeVisible] = React.useState(false);
@@ -50,15 +48,6 @@ const SettingScreen = () => {
 
     const settingsOptions = [
       {
-        clave: "font",
-        title: "Fuente",
-        subTitle: font,
-        onPress: () => {
-          setFontModalVisible(true);
-        },
-        
-      },
-      {
         clave: "fontSize",
         title: "Tamaño de letra",
         subTitle: toSize(fontSize),
@@ -85,26 +74,6 @@ const SettingScreen = () => {
     ];
   
     const options = {
-      font: [
-        {
-          name: "Arial",
-          selected: font === "Arial",
-          onPress: () => {
-            saveSetting("font", "Arial")
-            setFont("Arial")
-            setFontModalVisible(false)
-          }
-        },
-        {
-          name: "Calibri",
-          selected: font === "Calibri",
-          onPress: () => {
-            saveSetting('font', "Calibri")
-            setFont("Calibri")
-            setFontModalVisible(false)
-          }
-        }
-      ],
       fontSize: [
         {
           name: "Chica",
@@ -189,50 +158,40 @@ const SettingScreen = () => {
     };
   
     const getSettings = () => {
-      AsyncStorage.getItem("font").then(data => {
+      AsyncStorage.getItem("fontSize").then(data => {
           if(data){
-              setFont(JSON.parse(data));
+            setFontSize(JSON.parse(data));
           }else{
-              setFont("Arial")
-              const value = JSON.stringify("Arial")
-              AsyncStorage.setItem("font", value)
+              setFontSize(16)
+              const value = JSON.stringify(16)
+              AsyncStorage.setItem("fontSize", value)
           }
-      
-          AsyncStorage.getItem("fontSize").then(data => {
-              if(data){
-                setFontSize(JSON.parse(data));
+
+          AsyncStorage.getItem("updateTime").then(data => {
+            if(data){
+              setUpdateTime(JSON.parse(data));
+            }else{
+                setUpdateTime(900)
+                const value = JSON.stringify(900)
+                AsyncStorage.setItem("updateTime", value)
+            }
+            
+            AsyncStorage.getItem("theme").then(data =>{
+              if (data){
+                setTheme(JSON.parse(data));
               }else{
-                  setFontSize(16)
-                  const value = JSON.stringify(16)
-                  AsyncStorage.setItem("fontSize", value)
+                setTheme("light")
+                const value = JSON.stringify("light")
+                AsyncStorage.setItem("theme", value)
               }
 
-              AsyncStorage.getItem("updateTime").then(data => {
-                if(data){
-                  setUpdateTime(JSON.parse(data));
-                }else{
-                    setUpdateTime(900)
-                    const value = JSON.stringify(900)
-                    AsyncStorage.setItem("updateTime", value)
-                }
-                
-                AsyncStorage.getItem("theme").then(data =>{
-                  if (data){
-                    setTheme(JSON.parse(data));
-                  }else{
-                    setTheme("light")
-                    const value = JSON.stringify("light")
-                    AsyncStorage.setItem("theme", value)
-                  }
-
-                  setReady(true)
-                }).catch((error) => console.log(error));
-            
-              }).catch((error) => console.log(error));
-
+              setReady(true)
+            }).catch((error) => console.log(error));
+        
           }).catch((error) => console.log(error));
-    
+
       }).catch((error) => console.log(error));
+    
     };
     
     return (
@@ -246,7 +205,6 @@ const SettingScreen = () => {
             
               modalVisible={
                 {
-                  font: fontModalVisible,
                   fontSize: fontSizeModalVisible,
                   updateTime: updateTimeModalVisible,
                   theme: themeVisible
@@ -254,7 +212,6 @@ const SettingScreen = () => {
               }
               setModalVisible={
                 {
-                  font: setFontModalVisible, 
                   fontSize: setFontSizeModalVisible, 
                   updateTime: setUpdateTimeModalVisible,
                   theme: setThemeVisible
