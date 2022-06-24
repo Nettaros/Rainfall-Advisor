@@ -10,13 +10,11 @@ const RecommendationsScreen = () => {
     const Tab = createMaterialTopTabNavigator()
     return (
         <NavigationContainer independent={true}>
-            <View>
                 <Tab.Navigator>
                     <Tab.Screen name="Antes" component={RecoBeforeScreen}/>
                     <Tab.Screen name="Durante" component={RecoDuringScreen}/>
                     <Tab.Screen name="Después" component={RecoAfterScreen}/>
                 </Tab.Navigator>
-            </View>
         </NavigationContainer>
     )
 }
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-        fontStyle: "bold",
+        fontWeight: "bold",
         alignSelf:"center"
     },
     bar: {

@@ -29,10 +29,10 @@ const Footer = () => {
 export default function DrawerNavigation() {
     return (
         <Drawer.Navigator drawerContent={(props) => <MenuItem {...props} /> }>
-            <Drawer.Screen name="Menu" component={MainScreen}/>
+            <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
-            <Drawer.Screen name="Recomendacion" component={RecommendationsScreen}/>
-            <Drawer.Screen name="Quienes somos" component={WhoWeAreScreen}/>
+            <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
+            <Drawer.Screen name="¿Como funciona?" component={WhoWeAreScreen}/>
             <Drawer.Screen name="Ayuda" component={HelpScreen}/>
         </Drawer.Navigator>
     );
@@ -51,26 +51,25 @@ const MenuItem = ({navigation}) =>{
             
             <Separator/>
             <MenuButtonItem
-                text="Menu"
-                onPress={()=> navigation.navigate('Menu')}
+                text="Precipitación"
+                onPress={()=> navigation.navigate('Precipitacion')}
                 
             />
             <Separator/>
             <MenuButtonItem
-                text="Configuracion"
+                text="Configuración"
                 onPress={()=> navigation.navigate('Configuracion')}
                 
             />
             <Separator/>
             <MenuButtonItem
-                text="Recomendacion"
-                onPress={()=> navigation.navigate('Recomendacion')}
-                
+                text="Recomendaciones"
+                onPress={()=> navigation.navigate('Recomendaciones')}  
             />
             <Separator/>
             <MenuButtonItem
-                text="Quienes somos"
-                onPress={()=> navigation.navigate('Quienes somos')}
+                text="¿Como funciona?"
+                onPress={()=> navigation.navigate('¿Como funciona?')}
                 
             />
             <Separator/>
@@ -110,10 +109,10 @@ const style = StyleSheet.create({
         fontSize: 25,
         marginEnd:15,
         padding:15,
-        fontStyle: 'bold',
+        fontWeight: 'bold',
     },
     footerText:{
-        frontSize: 10,
+        fontSize: 10,
         color:'#ffffff',
         padding:15,
         
