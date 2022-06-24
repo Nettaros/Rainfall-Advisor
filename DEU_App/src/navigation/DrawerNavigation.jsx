@@ -5,7 +5,7 @@ import {useTheme} from '@react-navigation/native';
 //Screens
 import SettingScreen from "../components/screens/SettingScreen";
 import RecommendationsScreen from "../components/screens/RecommendationsScreen";
-import HowItWorksScreen from "../components/screens/HowItWorksScreen";
+import AboutScreen from "../components/screens/AboutScreen";
 import MainScreen from "../components/screens/MainScreen";
 //Boton generico
 import MenuButtonItem from "../components/MenuButtonItem";
@@ -21,7 +21,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
-            <Drawer.Screen name="¿Como funciona?" component={HowItWorksScreen}/>
+            <Drawer.Screen name="Sobre la App" component={AboutScreen}/>
         </Drawer.Navigator>
     );
 }
@@ -63,17 +63,10 @@ const MenuItem = ({navigation}) =>{
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
-                text="¿Como funciona?"
-                onPress={()=> navigation.navigate('¿Como funciona?')}  
+                text="Sobre la App"
+                onPress={()=> navigation.navigate('Sobre la App')}  
             />
             
-            <View style={[style.separator, {borderBottomColor:colors.text}]} />
-
-            <MenuButtonItem
-                text="Ayuda"
-                onPress={()=> navigation.navigate('Ayuda')}  
-            />
-
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
             
             <Text style={[style.footerText, {color: colors.text}]}>2020 - Diseño de Experiencia de Usuario</Text>  
