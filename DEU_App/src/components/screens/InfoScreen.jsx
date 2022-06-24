@@ -7,14 +7,14 @@ const InfoScreen = () => {
     const {colors} = useTheme();
     const theme = Theme();
     return (
-        <View>
+        <View accessible={true}>
             <ScrollView>
                 <Text style={[styles.item , {color: colors.text}, {borderColor: colors.border, fontSize: theme.fontSizes.body}]}>
                     La información proporcionada por la aplicación para hacer las recomendaciones utiles antes, durante y despues
                      de una inundación proviene del Plan de Reducción del Riesgo por Inundaciones para la Región La Plata.
                 </Text>
                 <View>
-                    <TouchableOpacity>
+                    <TouchableOpacity accessibilityRole="link" >
                         <Text style={[styles.text, {color: colors.text}, {backgroundColor: "#0098ff"}]} 
                                 onPress={() => Linking.openURL("http://sedici.unlp.edu.ar/handle/10915/112896")}>
                             LINK AL MANUAL
