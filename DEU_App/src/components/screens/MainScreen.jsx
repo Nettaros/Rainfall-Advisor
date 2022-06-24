@@ -3,6 +3,11 @@ import {View, Text, StyleSheet} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme.jsx';
+import { LinearGradient } from 'expo-linear-gradient'
+import * as Notification from "expo-notifications"
+
+
+
 
 const Main = () => {
   const [precipitacion, setPrecipitacion] = useState(0.0)
@@ -22,21 +27,24 @@ const Main = () => {
     setPrecipitacion(Math.round(Math.random()*100))
   }
 
-  /*async function onDisplayNotification() {
-    await notifee.requestPermission()
-    const channelId = await notifee.createChannel({
-      id: "default",
-      name: "Default Channel"
-    })
-
-    await notifee.displayNotification({
-      title: "Titulo",
-      body: "Contenido de la noti",
-      android: {
-        channelId
+  Notification.setNotificationHandler({
+    handleNotification: async() => {
+      return {
+        shouldPlaySound: true,
+        shouldShowAlert: true
       }
+    }
+  })
+
+  const handleNotification = () => {
+    Notification.scheduleNotificationAsync({
+      content: {
+        title: "Esta lloviendo mucho!",
+        body: "La lluvia esta pasando los 50mm en este momento, estate atento!"
+      },
+      trigger: null
     })
-  }*/
+  }
 
   useEffect(()=>{
     fetchPrecipitacion()
@@ -55,11 +63,11 @@ const Main = () => {
     return () => clearInterval(timer)
   })
 
-  /*useEffect(() => {
-    if(precipitacion > 60){
-      onDisplayNotification()
+  useEffect(() => {
+    if(precipitacion > 50){
+      handleNotification()
     }
-  }, [precipitacion])*/
+  }, [precipitacion])
 
 
   return (
