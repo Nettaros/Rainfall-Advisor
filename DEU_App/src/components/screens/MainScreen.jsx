@@ -75,43 +75,43 @@ const Main = () => {
           <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
         
-        <View style={{backgroundColor:colors.primary, borderRadius:10}}>
+        <View style={{backgroundColor:colors.primary, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150}}>
           <RNSpeedometer
               accessibleRole="image"
               value={precipitacion} 
-              size={150} 
+              size={250} 
               maxValue={100}
               minValue={0}
-              allowedDecimals={0}
+              allowedDecimals={1}
               defaultValue={0}
               labelNoteStyle={{fontSize:theme.fontSizes.body,justifyContent:"center", color:colors.text}}
               labels={[
                 {
-                  name: 'Sin riesgo',
+                  name: ((precipitacion != 1) ? "milimetros" : "milimetro") + "\nSin riesgo",
                   labelColor: colors.text,
+                  labelNoteStyle: {alignContent: "center"},
                   activeBarColor: 'green'
                 },
                 {
-                  name: 'Bajo riesgo',
+                  name: ((precipitacion != 1) ? "milimetros" : "milimetro") + "\nRiesgo bajo",
                   labelColor: colors.text,
+                  labelNoteStyle: {alignContent: "center"},
                   activeBarColor: 'yellow'
                 },
                 {
-                  name: 'Riesgo intermedio',
+                  name: ((precipitacion != 1) ? "milimetros" : "milimetro") + "\nRiesgo intermedio",
                   labelColor: colors.text,
+                  labelNoteStyle: {alignContent: "center"},
                   activeBarColor: 'orange'
                 },
                 {
-                  name: 'Alto riesgo',
+                  name: ((precipitacion != 1) ? "milimetros" : "milimetro") + "\nRiesgo Alto",
                   labelColor: colors.text,
+                  labelNoteStyle: {alignContent: "center"},
                   activeBarColor: 'red'
                 }
               ]}
               />
-            <View style={[styles.container_pecipitation, styles.row]}>
-              <Text style={{fontSize: theme.fontSizes.body, fontStyle: "bold",color: colors.text}}>{precipitacion}</Text>
-              <Text style={{fontStyle: "bold",fontSize:theme.fontSizes.body ,color:colors.text}}>mm</Text>
-            </View>
           </View>
 
         <View style={[styles.info_container, styles.row]}>

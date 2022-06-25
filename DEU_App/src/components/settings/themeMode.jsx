@@ -1,9 +1,9 @@
 const darkTheme = {
     dark: true,
     colors: {
-      primary: "gray",
-      background: "black",
-      card: "black",
+      primary: "rgba(105,159,247,1)",
+      background: "rgb(180,207,251)",
+      card: "rgba(67,135,245,1)",
       text: "white",
       border: "white",
       notification: "red",
@@ -14,9 +14,9 @@ const darkTheme = {
 const lightTheme = {
     dark: false,
     colors: {
-      primary: 'gray',
-      background: 'white',
-      card: 'white',
+      primary: 'rgb(180,207,251)',
+      background: 'rgba(105,159,247,1)',
+      card: 'rgba(67,135,245,1)',
       text: 'black',
       border: 'black',
       notification: 'red',
