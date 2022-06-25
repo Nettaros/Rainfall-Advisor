@@ -12,17 +12,16 @@ import * as Notification from "expo-notifications"
 const Main = () => {
   const [precipitacion, setPrecipitacion] = useState(0.0)
   const [minutos, setMinutos] = useState(0)
-  const updateMin = 3;
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
   const {colors} = useTheme();
   const theme= Theme();
   
   const fetchPrecipitacion = async () => {
-    //const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
-    //const json = await response.json()
-    //setPrecipitacion(json.current.precip_mm)
-    setPrecipitacion(Math.round(Math.random()*100))
+    const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
+    const json = await response.json()
+    setPrecipitacion(json.current.precip_mm)
+    //setPrecipitacion(Math.round(Math.random()*100))
   }
 
   Notification.setNotificationHandler({
@@ -50,16 +49,15 @@ const Main = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (minutos == updateMin){
+      if (minutos >= theme.updateTime){
         setMinutos(0)
         fetchPrecipitacion()
       }else{
         setMinutos(minutos+1)
-      }
-       
-    }, 2000)
+      } 
+    }, 60000)
     return () => clearInterval(timer)
-  })
+  },[minutos])
 
   useEffect(() => {
     if(precipitacion > 50){
