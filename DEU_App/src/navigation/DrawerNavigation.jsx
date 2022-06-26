@@ -17,14 +17,12 @@ export default function DrawerNavigation() {
     const {colors} = useTheme();
     
     return (
-        <View accessible={true}>
-            <Drawer.Navigator accessibilityRole="menu" screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
-                <Drawer.Screen name="Precipitación" component={MainScreen}/>
-                <Drawer.Screen name="Configuración" component={SettingScreen}/>
-                <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
-                <Drawer.Screen name="Sobre la App" component={AboutScreen}/>
-            </Drawer.Navigator>
-        </View>
+        <Drawer.Navigator accessible={true} accessibilityRole="menu" screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
+            <Drawer.Screen name="Precipitación" component={MainScreen}/>
+            <Drawer.Screen name="Configuración" component={SettingScreen}/>
+            <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
+            <Drawer.Screen name="Sobre la App" component={AboutScreen}/>
+        </Drawer.Navigator>
     );
 }
 
