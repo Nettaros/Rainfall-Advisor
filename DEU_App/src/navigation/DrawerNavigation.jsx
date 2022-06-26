@@ -32,7 +32,7 @@ const MenuItem = ({navigation}) =>{
     return (
 
         <DrawerContentScrollView 
-            style = {[style.container, {backgroundColor: colors.background}]}> 
+            style = {[style.container, {backgroundColor: colors.primary}]}> 
             
             <TouchableOpacity accessibilityRole="button" accessibilityHint="Cerrar menú" onPress={()=>navigation.toggleDrawer()}>
                 <Text style={[style.text, {color: colors.text, fontSize: theme.fontSizes.subheading}]}>X</Text>

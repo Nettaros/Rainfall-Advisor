@@ -54,7 +54,7 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                                 paddingBottom: 20
                             }}>
                                 <Text style={[{fontSize:theme.fontSizes.body , color: colors.text}]}>{title}</Text>
-                                <Text style={[{fontSize: theme.fontSizes.small, paddingTop: 5, opacity: 0.6,color:colors.text}]}>{subTitle}</Text> 
+                                <Text style={[{fontSize: theme.fontSizes.small, paddingTop: 5, opacity: 0.8,color:colors.text}]}>{subTitle}</Text> 
                             </View>
                             <View style={[{height:1,backgroundColor:colors.border}]}></View>
                         </TouchableOpacity>

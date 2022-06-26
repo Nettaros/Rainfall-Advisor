@@ -77,7 +77,7 @@ const Main = () => {
           <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
         
-        <View style={{backgroundColor:colors.primary, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150}}>
+        <View style={{backgroundColor:colors.card, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150}}>
           <RNSpeedometer
               accessibleRole="image"
               value={precipitacion} 
@@ -86,7 +86,7 @@ const Main = () => {
               minValue={0}
               allowedDecimals={1}
               defaultValue={0}
-              labelNoteStyle={{fontSize:theme.fontSizes.body,justifyContent:"center", color:colors.text}}
+              labelNoteStyle={{fontSize:theme.fontSizes.body,justifyContent:"center", color: "#000000"}}
               labels={[
                 {
                   name: ((precipitacion != 1) ? "milimetros" : "milimetro") + "\nSin riesgo",

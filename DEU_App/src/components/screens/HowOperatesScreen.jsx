@@ -2,6 +2,8 @@ import React from "react";
 import {View, Text, ScrollView, StyleSheet} from 'react-native'
 import {useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme';
+import TabListElement from "../style/tabListElement";
+
 
 const HowOperatesScreen = () => {
     const {colors} = useTheme();
@@ -9,17 +11,17 @@ const HowOperatesScreen = () => {
     return (
         <View accessible={true}>
             <ScrollView>
-                <Text style={[styles.item , {color: colors.text ,borderColor: colors.border, fontSize: theme.fontSizes.body}]}>
-                    La aplicación informa sobre el nivel de precipitación en La Plata. 
-                </Text>
-                <Text style={[styles.item , {color: colors.text ,borderColor: colors.border, fontSize: theme.fontSizes.body}]}>
-                    El nivel de precipitación varía entre 0mm y 100mm y en el caso de que el mismo pase los 50mm aparecera
-                     una notificación para informarte que la lluvia esta en niveles altos
-                </Text>
-                <Text style={[styles.item , {color: colors.text, borderColor: colors.border, fontSize: theme.fontSizes.body}]}>
-                    El objetivo es mantenerte informado sobre el nivel de precipitación para que sepas si estas en riesgo o no
-                </Text> 
-                    <View style={[styles.item , {color: colors.text,borderColor: colors.border, fontSize: theme.fontSizes.body}]}>
+                <TabListElement text="
+                    La aplicación informa sobre 
+                    el nivel de precipitación en La Plata."/>
+                <TabListElement text="
+                    El nivel de precipitación varía entre 0mm y 100mm 
+                    y en el caso de que el mismo pase los 50mm aparecera
+                    una notificación para informarte que la lluvia esta en niveles altos"/>
+                <TabListElement text="
+                    El objetivo es mantenerte informado sobre el nivel de 
+                    precipitación para que sepas si estas en riesgo o no"/>
+                    <View style={[styles.item , {color: colors.text,borderColor: colors.border, fontSize: theme.fontSizes.body, backgroundColor: colors.primary}]}>
                             <Text style={[styles.text , {color: colors.text,fontSize: theme.fontSizes.body}]}>
                                 Hay 4 niveles de lluvia:
                             </Text>

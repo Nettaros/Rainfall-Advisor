@@ -2,6 +2,7 @@ import React from "react";
 import {View, Text, ScrollView, StyleSheet, Linking, TouchableOpacity} from 'react-native'
 import {Link, useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme';
+import TabListElement from "../style/tabListElement";
 
 const InfoScreen = () => {
     const {colors} = useTheme();
@@ -9,13 +10,13 @@ const InfoScreen = () => {
     return (
         <View accessible={true}>
             <ScrollView>
-                <Text style={[styles.item , {color: colors.text,borderColor: colors.border, fontSize: theme.fontSizes.body}]}>
-                    La información proporcionada por la aplicación para hacer las recomendaciones utiles antes, durante y despues
-                     de una inundación proviene del Plan de Reducción del Riesgo por Inundaciones para la Región La Plata.
-                </Text>
+                <TabListElement text="
+                    La información proporcionada por la aplicación para hacer las recomendaciones 
+                    utiles antes, durante y despues de una inundación proviene del 
+                    Plan de Reducción del Riesgo por Inundaciones para la Región La Plata."/>
                 <View>
                     <TouchableOpacity accessibilityRole="link" >
-                        <Text style={[styles.text, {fontSize: theme.fontSizes.body,color: colors.text, backgroundColor: "#0098ff"}]} 
+                        <Text style={[styles.text, {fontSize: theme.fontSizes.body, color: colors.text, backgroundColor: colors.primary}]} 
                                 onPress={() => Linking.openURL("http://sedici.unlp.edu.ar/handle/10915/112896")}>
                             LINK AL MANUAL
                         </Text>
