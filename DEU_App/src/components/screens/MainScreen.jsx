@@ -12,7 +12,6 @@ import * as Notification from "expo-notifications"
 const Main = () => {
   const [precipitacion, setPrecipitacion] = useState(0.0)
   const [minutos, setMinutos] = useState(0)
-  const updateMin = 3;
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
   const {colors} = useTheme();
@@ -51,6 +50,7 @@ const Main = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
+
       if (minutos*60 >= theme.updateTime.seconds){
         setMinutos(0)
         fetchPrecipitacion()
@@ -58,6 +58,7 @@ const Main = () => {
         setMinutos(minutos+1)
       }
        
+
     }, 60000)
     return () => clearInterval(timer)
   },[minutos])
