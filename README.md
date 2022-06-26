@@ -32,3 +32,6 @@ La aplicación obtiene de la API:https://www.weatherapi.com/ el nivel de precipi
 5. En caso caso de que el código QR no aparezca, copiar el link (el que esta seleccionado en rojo en la imagen) y luego copiarlo en el navegador.
 *  ![imagen](https://user-images.githubusercontent.com/63661809/175838456-2eba496c-79fb-43f1-89a4-7c3e57b8444f.png)
 6. Escanear el codigo QR que aparece abajo a la izquierda.
+
+*Comentario: Es posible utilizar la app en en navegador, pero hay que tener en cuenta que las funcionalidades estan limitadas y no siempre funciona correctamente.
+Para abrirlo, realizar hasta el 5to paso inclusive en el método de uso y seleccionar la opcion "Run in web browser"*
