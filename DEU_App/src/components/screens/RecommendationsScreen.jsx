@@ -6,13 +6,17 @@ import RecoBeforeScreen from './RecommendationsScreenBefore.jsx'
 import RecoDuringScreen from './RecommendationsScreenDuring.jsx'
 import RecoAfterScreen from './RecommendationsScreenAfter.jsx'
 import themeChanger from '../settings/themeChanger';
+import Theme from '../settings/theme.jsx';
 
 const RecommendationsScreen = () => {
-    const theme = themeChanger();
+    const themeNavigator = themeChanger();
+    const theme = Theme()
     const Tab = createMaterialTopTabNavigator()
     return (
-        <NavigationContainer independent={true} theme={theme}>
-                <Tab.Navigator theme={theme}>
+        <NavigationContainer independent={true} theme={themeNavigator}>
+                <Tab.Navigator screenOptions={{
+                    tabBarLabelStyle:{ fontSize: theme.fontSizes.body}
+                }}>
                     <Tab.Screen name="Antes" component={RecoBeforeScreen}/>
                     <Tab.Screen name="Durante" component={RecoDuringScreen}/>
                     <Tab.Screen name="Después" component={RecoAfterScreen}/>

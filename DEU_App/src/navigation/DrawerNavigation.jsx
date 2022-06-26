@@ -73,7 +73,7 @@ const MenuItem = ({navigation}) =>{
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
-            <Text style={[style.footerText, {color: colors.text}]}>2020 - Diseño de Experiencia de Usuario</Text>  
+            <Text style={[style.footerText, {color: colors.text, fontSize: theme.fontSizes.small}]}>2020 - Diseño de Experiencia de Usuario</Text>  
         </DrawerContentScrollView>
         
         
@@ -96,7 +96,6 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
     },
     footerText:{
-        fontSize: 10,
         padding:15,
     },
 })
