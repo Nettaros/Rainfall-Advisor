@@ -28,7 +28,7 @@ La aplicación obtiene de la API:https://www.weatherapi.com/ el nivel de precipi
 3. Abrir la consola y realizar los siguientes pasos:
 * `npm install`
 * `expo start`
-7. Luego aparecerá un código QR el cual se debe escanear la aplicación de celular Expo Go.
-8. En caso caso de que el código QR no aparezca, copiar el link (el que esta seleccionado en rojo en la imagen) y luego copiarlo en el navegador.
+4. Luego aparecerá un código QR el cual se debe escanear la aplicación de celular Expo Go.
+5. En caso caso de que el código QR no aparezca, copiar el link (el que esta seleccionado en rojo en la imagen) y luego copiarlo en el navegador.
 *  ![imagen](https://user-images.githubusercontent.com/63661809/175838456-2eba496c-79fb-43f1-89a4-7c3e57b8444f.png)
-9. Escanear el codigo QR que aparece abajo a la izquierda.
+6. Escanear el codigo QR que aparece abajo a la izquierda.
