@@ -17,7 +17,7 @@ export default function DrawerNavigation() {
     const {colors} = useTheme();
     
     return (
-        <Drawer.Navigator accesibilyRole="menu" screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
+        <Drawer.Navigator accessibilityRole="menu" screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
             <Drawer.Screen name="Precipitacion" component={MainScreen}/>
             <Drawer.Screen name="Configuracion" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
@@ -73,7 +73,7 @@ const MenuItem = ({navigation}) =>{
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
-            <Text style={[style.footerText, {color: colors.text, fontSize: theme.fontSizes.small}]}>2020 - Diseño de Experiencia de Usuario</Text>  
+            <Text accessibilityRole="text" style={[style.footerText, {color: colors.text, fontSize: theme.fontSizes.small}]}>2020 - Diseño de Experiencia de Usuario</Text>  
         </DrawerContentScrollView>
         
         

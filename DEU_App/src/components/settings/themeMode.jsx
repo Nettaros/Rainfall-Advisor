@@ -21,7 +21,6 @@ const lightTheme = {
       border: '#4b86b4',
       notification: 'red',
     },
-    
   };
 
 export {darkTheme, lightTheme};

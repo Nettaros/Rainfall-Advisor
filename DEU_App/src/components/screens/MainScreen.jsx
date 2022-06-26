@@ -89,7 +89,7 @@ const Main = () => {
               labelNoteStyle={{fontSize:theme.fontSizes.body,justifyContent:"center", color: "#000000"}}
               labels={[
                 {
-                  name: ((precipitacion != 1) ? "milimetros" : "milimetro") + "\nSin riesgo",
+                  name: ((precipitacion != 1) ? "milímetros" : "milímetro") + "\nSin riesgo",
                   labelColor: colors.text,
                   labelNoteStyle: {alignContent: "center"},
                   activeBarColor: 'green'

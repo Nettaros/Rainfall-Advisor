@@ -15,7 +15,7 @@ const InfoScreen = () => {
                     utiles antes, durante y despues de una inundación proviene del 
                     Plan de Reducción del Riesgo por Inundaciones para la Región La Plata."/>
                 <View>
-                    <TouchableOpacity accessibilityRole="link" >
+                    <TouchableOpacity accessibilityRole="button" >
                         <Text style={[styles.text, {fontSize: theme.fontSizes.body, color: colors.text, backgroundColor: colors.primary}]} 
                                 onPress={() => Linking.openURL("http://sedici.unlp.edu.ar/handle/10915/112896")}>
                             LINK AL MANUAL
