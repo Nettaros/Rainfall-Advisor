@@ -22,7 +22,7 @@ const AppModal = ({modalVisible, setModalVisible, modalBody, title}) => {
                                 <Text style={[{fontSize: theme.fontSizes.body ,color: colors.text}]}>X</Text>
                             </TouchableOpacity>
                             
-                            <Text style={{fontSize: theme.fontSizes.title, color:colors.text}}>{title || "Titulo"}</Text>
+                            <Text accessibilityRole="header" style={{fontSize: theme.fontSizes.title, color:colors.text}}>{title || "Titulo"}</Text>
                             <Text/>
                             <Text/>
                             <Text/>
