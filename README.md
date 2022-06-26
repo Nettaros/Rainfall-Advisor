@@ -16,7 +16,7 @@ La aplicación obtiene de la API:https://www.weatherapi.com/ el nivel de precipi
 ## Tecnologías utilizadas
 1. React Native con Expo
 
-##Requisitos
+## Requisitos
 * Instalar Expo CLI: `npm install -g expo-cli`
 * Instalar Expo GO en el celular. [Link](https://expo.dev/expo-go)
 * Instalar npm.
