@@ -64,6 +64,7 @@ const SettingScreen = () => {
           setUpdateTimeModalVisible(true);
         },
         hint: "Tiempo de actualización. Seleccionado el tiempo de actualizacion cada"+toMinutes(updateTime) 
+
       },
       {
           clave: "theme",

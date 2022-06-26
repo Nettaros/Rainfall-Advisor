@@ -18,7 +18,13 @@ const Main = () => {
   const theme= Theme();
   
   const fetchPrecipitacion = async () => {
-    const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
+    const response = await (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
+    {
+      method: "GET",
+      headers: {
+        'Access-Control-Allow-Origin': "*"
+      }
+    }))
     const json = await response.json()
     setPrecipitacion(json.current.precip_mm)
     //setPrecipitacion(Math.round(Math.random()*100))

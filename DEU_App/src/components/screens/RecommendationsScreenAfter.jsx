@@ -11,10 +11,10 @@ const RecoAfterScreen = () => {
     return (
         <View accessible={true}>
             <ScrollView>
-                <TabListElement text="Recom 1"/>
-                <TabListElement text="Recom 2"/>
-                <TabListElement text="Recom 3"/>
-                <TabListElement text="Recom 4"/>
+                <TabListElement text="Verificá si la casa está en condiciones de ser habitada nuevamente"/>
+                <TabListElement text="Para prevenir accidentes eléctricos, intentá volver al hogar a la luz del día"/>
+                <TabListElement text="Secá y ventilá bien las habitaciones"/>
+                <TabListElement text="Rociá los muebles tapizados con algún desinfectante y dejalos secar al sol"/>
             </ScrollView>
         </View>
     )
