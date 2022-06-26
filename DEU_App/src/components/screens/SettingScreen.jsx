@@ -54,7 +54,7 @@ const SettingScreen = () => {
         onPress: () => {
           setFontSizeModalVisible(true);
         },
-        hint: "Tamaño de letra"  
+        hint: "Tamaño de letra. Seleccionado el tamaño de letra"+toSize(fontSize)  
       },
       {
         clave: "updateTime",
@@ -63,7 +63,7 @@ const SettingScreen = () => {
         onPress: () => {
           setUpdateTimeModalVisible(true);
         },
-        hint: "Tiempo de actualización" 
+        hint: "Tiempo de actualización. Seleccionado el tiempo de actualizacion cada"+toMinutes(updateTime) 
       },
       {
           clave: "theme",
@@ -72,7 +72,7 @@ const SettingScreen = () => {
           onPress: () => {
             setThemeVisible(true);
           },
-          hint: "Tema claro u oscuro" 
+          hint: "Tema de la aplicación. Seleccionado el tema"+((theme === "light")?"claro":"oscuro")
       }
     ];
   
@@ -87,7 +87,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeFontSize", 16);
             setFontSizeModalVisible(false)
           },
-          hint: "Letra chica" 
+          hint: "Letra chica"+((fontSize === 16)?". Seleccionada":"")
         },
         {
           name: "Mediana",
@@ -98,7 +98,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeFontSize", 20);
             setFontSizeModalVisible(false)
           },
-          hint: "Letra mediana" 
+          hint: "Letra mediana"+((fontSize === 20)?". Seleccionada":"")
           
         },
         {
@@ -110,7 +110,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeFontSize", 24);
             setFontSizeModalVisible(false)
           },
-          hint: "Letra grande" 
+          hint: "Letra grande"+((fontSize === 24)?". Seleccionada":"")
         }
       ],
       updateTime: [
@@ -123,7 +123,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeTime", 900);
             setUpdateTimeModalVisible(false)
           },
-          hint: "Tiempo de actualización cada 15 minutos" 
+          hint: "Tiempo de actualización cada 15 minutos"+((updateTime === 900)?". Seleccionado":"")
         },
         {
           name: "30 minutos",
@@ -134,7 +134,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeTime", 1800);
             setUpdateTimeModalVisible(false)
           },
-          hint: "Tiempo de actualización cada 30 minutos" 
+          hint: "Tiempo de actualización cada 30 minutos"+((updateTime === 1800)?".Seleccionado":"")
         },
         {
           name: "45 minutos",
@@ -145,7 +145,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeTime", 2700);
             setUpdateTimeModalVisible(false)
           },
-          hint: "Tiempo de actualización cada 45 minutos" 
+          hint: "Tiempo de actualización cada 45 minutos"+((updateTime === 2700)?". Seleccionado":"")
         }
       ],
       theme:[
@@ -158,7 +158,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeTheme", false);
             setThemeVisible(false)
           },
-          hint: "Tema claro" 
+          hint: "Tema claro "+((theme === "light")?". Seleccionado":"")
         },
         {
           name: "Tema oscuro",
@@ -169,7 +169,7 @@ const SettingScreen = () => {
             EventRegister.emit("changeTheme", true);
             setThemeVisible(false)
           },
-          hint: "Tema oscuro" 
+          hint: "Tema oscuro"+((theme === "dark")?". seleccionado":"")
         }
       ]
     };
