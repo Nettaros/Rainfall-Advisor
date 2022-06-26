@@ -9,7 +9,7 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
     const theme= Theme();
     const returnBody = (clave) =>{
         return(
-            <View accessible={true}> 
+            <View accessibilityRole="combobox" accessible={true}> 
                 {options[clave].map(({name, selected, onPress,hint}) => {
                     return(
                         <View key={name}>
