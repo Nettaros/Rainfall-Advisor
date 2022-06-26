@@ -6,13 +6,17 @@ import InfoScreen from './InfoScreen.jsx'
 import themeChanger from '../settings/themeChanger';
 import {createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer, DarkTheme }  from '@react-navigation/native';
+import Theme from '../settings/theme.jsx';
 
 const About = () => {
-    const theme = themeChanger();
+    const themeNavigator = themeChanger();
+    const theme= Theme()
     const Tab = createMaterialTopTabNavigator()
     return (
-        <NavigationContainer independent={true} theme={theme}>
-                <Tab.Navigator theme={theme}>
+        <NavigationContainer independent={true} theme={themeNavigator}>
+                <Tab.Navigator screenOptions={{
+                    tabBarLabelStyle:{ fontSize: theme.fontSizes.body}
+                }}>
                     <Tab.Screen name="¿Como funciona?" component={HowOperatesScreen}/>
                     <Tab.Screen name="Información" component={InfoScreen}/>
                 </Tab.Navigator>
