@@ -22,7 +22,7 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                                     paddingVertical: 5,
                                     alignItems: "center"
                                 }}>
-                                {selected && <Text style={{color:colors.text, paddingLeft:20, fontSize:theme.fontSizes.body}}>*</Text>}
+                                {selected && <Text style={{color:colors.text, paddingLeft:20, fontSize:theme.fontSizes.body}}>->></Text>}
                                 <Text style={[{fontSize: theme.fontSizes.body, paddingLeft: selected ? 15 : 30, paddingBottom: 20, paddingTop: 20,color:colors.text}]}>
                                     {name}
                                 </Text>

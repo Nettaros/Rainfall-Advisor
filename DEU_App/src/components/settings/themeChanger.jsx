@@ -11,7 +11,8 @@ export default function themeChanger() {
         data => {
           if(data){
             const value = JSON.parse(data);
-            setDarkApp((value === "light")?false:true)
+            setDarkApp((value === "light")?false:true);
+
           }else{
             setDarkApp(false);
           }

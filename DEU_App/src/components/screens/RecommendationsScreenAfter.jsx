@@ -6,6 +6,7 @@ import Theme from '../settings/theme';
 const RecoAfterScreen = () => {
     const {colors} = useTheme();
     const theme = Theme();
+
     return (
         <View accessible={true}>
             <ScrollView>

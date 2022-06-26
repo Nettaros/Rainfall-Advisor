@@ -84,6 +84,7 @@ const SettingScreen = () => {
           onPress: () => {
             saveSetting('fontSize', 16)
             setFontSize(16)
+            EventRegister.emit("changeFontSize", 16);
             setFontSizeModalVisible(false)
           },
           hint: "Letra chica" 
@@ -94,6 +95,7 @@ const SettingScreen = () => {
           onPress: () => {
             saveSetting("fontSize", 20)
             setFontSize(20)
+            EventRegister.emit("changeFontSize", 20);
             setFontSizeModalVisible(false)
           },
           hint: "Letra mediana" 
@@ -105,6 +107,7 @@ const SettingScreen = () => {
           onPress: () => {
             saveSetting("fontSize", 24)
             setFontSize(24)
+            EventRegister.emit("changeFontSize", 24);
             setFontSizeModalVisible(false)
           },
           hint: "Letra grande" 
@@ -117,6 +120,7 @@ const SettingScreen = () => {
           onPress: () => {
             saveSetting("updateTime", 900)
             setUpdateTime(900)
+            EventRegister.emit("changeTime", 900);
             setUpdateTimeModalVisible(false)
           },
           hint: "Tiempo de actualización cada 15 minutos" 
@@ -127,6 +131,7 @@ const SettingScreen = () => {
           onPress: () => {
             saveSetting("updateTime", 1800)
             setUpdateTime(1800)
+            EventRegister.emit("changeTime", 1800);
             setUpdateTimeModalVisible(false)
           },
           hint: "Tiempo de actualización cada 30 minutos" 
@@ -137,6 +142,7 @@ const SettingScreen = () => {
           onPress: () => {
             saveSetting("updateTime", 2700)
             setUpdateTime(2700)
+            EventRegister.emit("changeTime", 2700);
             setUpdateTimeModalVisible(false)
           },
           hint: "Tiempo de actualización cada 45 minutos" 

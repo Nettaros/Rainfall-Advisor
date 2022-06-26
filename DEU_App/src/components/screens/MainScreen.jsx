@@ -19,10 +19,10 @@ const Main = () => {
   const theme= Theme();
   
   const fetchPrecipitacion = async () => {
-    //const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
-    //const json = await response.json()
-    //setPrecipitacion(json.current.precip_mm)
-    setPrecipitacion(Math.round(Math.random()*100))
+    const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
+    const json = await response.json()
+    setPrecipitacion(json.current.precip_mm)
+    //setPrecipitacion(Math.round(Math.random()*100))
   }
 
   Notification.setNotificationHandler({
@@ -35,6 +35,7 @@ const Main = () => {
   })
 
   const handleNotification = () => {
+    Notification.dismissAllNotificationsAsync();
     Notification.scheduleNotificationAsync({
       content: {
         title: "Esta lloviendo mucho!",
@@ -50,16 +51,16 @@ const Main = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (minutos == updateMin){
+      if (minutos*60 >= theme.updateTime.seconds){
         setMinutos(0)
         fetchPrecipitacion()
       }else{
         setMinutos(minutos+1)
       }
        
-    }, 2000)
+    }, 60000)
     return () => clearInterval(timer)
-  })
+  },[minutos])
 
   useEffect(() => {
     if(precipitacion > 50){
@@ -71,7 +72,7 @@ const Main = () => {
   return (
     <View style={styles.container} accessible={true}>
         <View style={{alignItems: "center"}}>
-          <Text style={{fontSize: theme.fontSizes.title,fontStyle: "bold", color:colors.text}}>Nivel de precipitación</Text>
+          <Text style={{fontSize: theme.fontSizes.title, fontWeight: "bold", color:colors.text}}>Nivel de precipitación</Text>
           <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
         

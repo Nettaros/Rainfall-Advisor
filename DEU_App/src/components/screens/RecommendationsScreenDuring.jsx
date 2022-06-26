@@ -7,7 +7,7 @@ const RecoDuringScreen = () => {
     const {colors} = useTheme();
     const theme = Theme();
     return (
-        <View accesible={true}>
+        <View accessible={true}>
             <ScrollView>
                 <Text style={[styles.item , {color: colors.text,borderColor: colors.border, fontSize: theme.fontSizes.body}]}>Recomendación 23</Text>
                 <Text style={[styles.item , {color: colors.text,borderColor: colors.border, fontSize: theme.fontSizes.body}]}>Recomendacion 2</Text>
