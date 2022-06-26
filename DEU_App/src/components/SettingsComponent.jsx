@@ -22,10 +22,17 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, opti
                                     paddingVertical: 5,
                                     alignItems: "center"
                                 }}>
-                                {selected && <Text accessibilityState={{selected: true}} style={{color:colors.text, paddingLeft:20, fontSize:theme.fontSizes.body}}>->></Text>}
-                                <Text style={[{fontSize: theme.fontSizes.body, paddingLeft: selected ? 15 : 30, paddingBottom: 20, paddingTop: 20,color:colors.text}]}>
-                                    {name}
-                                </Text>
+                                {selected && 
+                                    <Text 
+                                        style={{color:colors.text, paddingLeft:20, fontSize:theme.fontSizes.body}}>->></Text>}
+                                {(selected) ? 
+                                    <Text accessibilityState={{selected: true}}  style={[{fontSize: theme.fontSizes.body, paddingLeft: selected ? 15 : 30, paddingBottom: 20, paddingTop: 20,color:colors.text}]}>
+                                        {name}
+                                    </Text> : 
+                                    <Text accessibilityState={{selected: false}}  style={[{fontSize: theme.fontSizes.body, paddingLeft: selected ? 15 : 30, paddingBottom: 20, paddingTop: 20,color:colors.text}]}>
+                                        {name}
+                                    </Text>}
+                                
                             </TouchableOpacity>
                             <View style={{height:1, backgroundColor:colors.border}}></View>
                         </View>
