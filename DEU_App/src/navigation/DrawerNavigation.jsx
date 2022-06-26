@@ -18,8 +18,8 @@ export default function DrawerNavigation() {
     
     return (
         <Drawer.Navigator accessibilityRole="menu" screenOptions={{headerTintColor: colors.text}} drawerContent={(props) => <MenuItem {...props} />}>
-            <Drawer.Screen name="Precipitacion" component={MainScreen}/>
-            <Drawer.Screen name="Configuracion" component={SettingScreen}/>
+            <Drawer.Screen name="Precipitación" component={MainScreen}/>
+            <Drawer.Screen name="Configuración" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
             <Drawer.Screen name="Sobre la App" component={AboutScreen}/>
         </Drawer.Navigator>
@@ -43,7 +43,7 @@ const MenuItem = ({navigation}) =>{
 
             <MenuButtonItem
                 text="Precipitación"
-                onPress={()=> navigation.navigate('Precipitacion')}
+                onPress={()=> navigation.navigate('Precipitación')}
                 hint="Nivel de precipitación en La Plata"  
             />
             
@@ -51,7 +51,7 @@ const MenuItem = ({navigation}) =>{
 
             <MenuButtonItem
                 text="Configuración"
-                onPress={()=> navigation.navigate('Configuracion')}  
+                onPress={()=> navigation.navigate('Configuración')}  
                 hint="Configuración de la aplicación"  
             />
             
