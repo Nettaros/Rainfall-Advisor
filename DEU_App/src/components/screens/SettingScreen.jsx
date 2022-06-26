@@ -54,7 +54,7 @@ const SettingScreen = () => {
         onPress: () => {
           setFontSizeModalVisible(true);
         },
-        hint: "Tamaño de letra"  
+        hint: "Tamaño de letra. Seleccionado el tamaño de letra"+toSize(fontSize)
       },
       {
         clave: "updateTime",
@@ -63,7 +63,7 @@ const SettingScreen = () => {
         onPress: () => {
           setUpdateTimeModalVisible(true);
         },
-        hint: "Tiempo de actualización" 
+        hint: "Tiempo de actualización. Seleccionado el tiempo de actualizacion cada"+toMinutes(updateTime)
       },
       {
           clave: "theme",
@@ -72,7 +72,7 @@ const SettingScreen = () => {
           onPress: () => {
             setThemeVisible(true);
           },
-          hint: "Tema claro u oscuro" 
+          hint: "Tema de la aplicación. Seleccionado el tema"+((theme === "light")?"claro":"oscuro")
       }
     ];
   
