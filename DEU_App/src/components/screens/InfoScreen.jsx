@@ -18,7 +18,7 @@ const InfoScreen = () => {
                     <TouchableOpacity accessibilityRole="button" >
                         <Text style={[styles.text, {fontSize: theme.fontSizes.body, color: colors.text, backgroundColor: colors.primary}]} 
                                 onPress={() => Linking.openURL("http://sedici.unlp.edu.ar/handle/10915/112896")}>
-                            LINK AL MANUAL
+                            ENLACE AL MANUAL
                         </Text>
                     </TouchableOpacity>
                 </View>

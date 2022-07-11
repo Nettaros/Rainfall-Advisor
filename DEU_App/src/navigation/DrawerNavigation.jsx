@@ -21,7 +21,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen name="Precipitación" component={MainScreen}/>
             <Drawer.Screen name="Configuración" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
-            <Drawer.Screen name="Sobre la App" component={AboutScreen}/>
+            <Drawer.Screen name="Sobre la Aplicación" component={AboutScreen}/>
         </Drawer.Navigator>
     );
 }
@@ -66,8 +66,8 @@ const MenuItem = ({navigation}) =>{
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
-                text="Sobre la App"
-                onPress={()=> navigation.navigate('Sobre la App')}            
+                text="Sobre la Aplicación"
+                onPress={()=> navigation.navigate('Sobre la Aplicación')}            
                 hint="Información sobre la aplicación"  
             />
             
