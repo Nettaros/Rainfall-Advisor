@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, Button, Alert} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme.jsx';
@@ -18,7 +18,7 @@ const Main = () => {
   const theme= Theme();
   
   const fetchPrecipitacion = async () => {
-    const response = await (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
+    /*const response = await (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
     {
       method: "GET",
       headers: {
@@ -26,8 +26,8 @@ const Main = () => {
       }
     }))
     const json = await response.json()
-    setPrecipitacion(json.current.precip_mm)
-    //setPrecipitacion(Math.round(Math.random()*100))
+    setPrecipitacion(json.current.precip_mm)*/
+    setPrecipitacion(Math.round(Math.random()*100))
   }
 
   Notification.setNotificationHandler({
@@ -39,15 +39,32 @@ const Main = () => {
     }
   })
 
+  Notification.setNotificationCategoryAsync("recommendation_question",[
+    {
+      identifier: 'send_recommendation',
+      buttonTitle: 'Ir a recomendaciones'
+    }
+  ]);
+
+  useEffect(()=>{
+    Notification.addNotificationResponseReceivedListener(response =>{
+        //ir a recommendaciones
+
+    });
+  },[])
+
   const handleNotification = () => {
     Notification.dismissAllNotificationsAsync();
     Notification.scheduleNotificationAsync({
       content: {
         title: "Esta lloviendo mucho!",
-        body: "La lluvia esta pasando los 50mm en este momento, estate atento!"
+        body: "La lluvia esta pasando los 50mm en este momento, estate atento!",
+        categoryIdentifier: "recommendation_question"
+        
       },
       trigger: null
     })
+    
   }
 
   useEffect(()=>{
@@ -65,7 +82,7 @@ const Main = () => {
       }
        
 
-    }, 60000)
+    }, 1000)
     return () => clearInterval(timer)
   },[minutos])
 
