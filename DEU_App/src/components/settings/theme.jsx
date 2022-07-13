@@ -12,6 +12,9 @@ export default function Theme(){
         },
         updateTime: {
             seconds: setting.fetchCoolDown
+        },
+        lastUpdate:{
+            millisec: setting.lastUpdate
         }
     });
 };

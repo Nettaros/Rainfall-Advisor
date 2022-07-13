@@ -5,17 +5,14 @@ import { EventRegister } from 'react-native-event-listeners'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useTheme} from '@react-navigation/native';
 
-//import * as SplashScreen from "expo-splash-screen"
-//import { useCallback } from 'react/cjs/react.production.min';
-
 const SettingScreen = () => {
     const [ready, setReady] = useState(false)
-    const [fontSize, setFontSize] = React.useState(null);
-    const [updateTime, setUpdateTime] = React.useState(null)
-    const [theme, setTheme] = React.useState(null);
-    const [fontSizeModalVisible, setFontSizeModalVisible] = React.useState(false);
-    const [updateTimeModalVisible, setUpdateTimeModalVisible] = React.useState(false);
-    const [themeVisible, setThemeVisible] = React.useState(false);
+    const [fontSize, setFontSize] = useState(null);
+    const [updateTime, setUpdateTime] = useState(null)
+    const [theme, setTheme] = useState(null);
+    const [fontSizeModalVisible, setFontSizeModalVisible] = useState(false);
+    const [updateTimeModalVisible, setUpdateTimeModalVisible] = useState(false);
+    const [themeVisible, setThemeVisible] = useState(false);
 
     const {colors} = useTheme();
     
@@ -63,7 +60,7 @@ const SettingScreen = () => {
         onPress: () => {
           setUpdateTimeModalVisible(true);
         },
-        hint: "Tiempo de actualización. Seleccionado el tiempo de actualizacion cada"+toMinutes(updateTime) 
+        hint: "Tiempo de actualización."+((updateTime === 0)? "Actualización automática desactivada.":"Seleccionado el tiempo de actualizacion cada"+toMinutes(updateTime))
 
       },
       {
@@ -116,13 +113,24 @@ const SettingScreen = () => {
       ],
       updateTime: [
         {
+          name: "Desactivado",
+          selected: updateTime === 0,
+          onPress: () => {
+            saveSetting("updateTime", 0);
+            setUpdateTime(0);
+            EventRegister.emit("changeTime", 0);
+            setUpdateTimeModalVisible(false);
+          },
+          hint: "Tiempo de actualización automático desactivado"+((updateTime === 0)? ". Seleccionado":"")
+        },
+        {
           name: "15 minutos",
           selected: updateTime === 900,
           onPress: () => {
-            saveSetting("updateTime", 900)
-            setUpdateTime(900)
+            saveSetting("updateTime", 900);
+            setUpdateTime(900);
             EventRegister.emit("changeTime", 900);
-            setUpdateTimeModalVisible(false)
+            setUpdateTimeModalVisible(false);
           },
           hint: "Tiempo de actualización cada 15 minutos"+((updateTime === 900)?". Seleccionado":"")
         },
@@ -130,10 +138,10 @@ const SettingScreen = () => {
           name: "30 minutos",
           selected: updateTime === 1800,
           onPress: () => {
-            saveSetting("updateTime", 1800)
-            setUpdateTime(1800)
+            saveSetting("updateTime", 1800);
+            setUpdateTime(1800);
             EventRegister.emit("changeTime", 1800);
-            setUpdateTimeModalVisible(false)
+            setUpdateTimeModalVisible(false);
           },
           hint: "Tiempo de actualización cada 30 minutos"+((updateTime === 1800)?".Seleccionado":"")
         },
@@ -220,7 +228,6 @@ const SettingScreen = () => {
         <View style={{backgroundColor:colors.background}}></View>
         : 
         <SettingsComponent
-            
               modalVisible={
                 {
                   fontSize: fontSizeModalVisible,
