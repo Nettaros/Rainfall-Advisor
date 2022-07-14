@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, StyleSheet, Button, Alert} from 'react-native'
+import {View, Text, StyleSheet, Button} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme.jsx';
-import { LinearGradient } from 'expo-linear-gradient'
 import * as Notification from "expo-notifications"
-
+import * as RootNavigation from '../../navigation/RootNavigation'
 
 
 
@@ -18,7 +17,7 @@ const Main = () => {
   const theme= Theme();
   
   const fetchPrecipitacion = async () => {
-    /*const response = await (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
+    const response = await (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
     {
       method: "GET",
       headers: {
@@ -26,10 +25,9 @@ const Main = () => {
       }
     }))
     const json = await response.json()
-    setPrecipitacion(json.current.precip_mm)*/
-    setPrecipitacion(Math.round(Math.random()*100))
+    setPrecipitacion(json.current.precip_mm)
+    //setPrecipitacion(Math.round(Math.random()*100))
   }
-
   Notification.setNotificationHandler({
     handleNotification: async() => {
       return {
@@ -43,13 +41,13 @@ const Main = () => {
     {
       identifier: 'send_recommendation',
       buttonTitle: 'Ir a recomendaciones'
-    }
-  ]);
+    } 
+  ]); 
+
 
   useEffect(()=>{
     Notification.addNotificationResponseReceivedListener(response =>{
-        //ir a recommendaciones
-
+        RootNavigation.navigate("Recomendaciones","Durante")
     });
   },[])
 
@@ -82,7 +80,7 @@ const Main = () => {
       }
        
 
-    }, 1000)
+    }, 60000)
     return () => clearInterval(timer)
   },[minutos])
 
@@ -138,7 +136,7 @@ const Main = () => {
               ]}
               />
           </View>
-
+        
         <View style={[styles.info_container, styles.row]}>
           <Text style={{fontSize: theme.fontSizes.body,color: colors.text}}>Ultima actualización: </Text>
           <Text style={{fontSize: theme.fontSizes.body,color: colors.text}}>{minutos} minutos</Text>
