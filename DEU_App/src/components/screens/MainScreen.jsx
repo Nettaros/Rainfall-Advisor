@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, Component} from 'react'
 import {View, Text, StyleSheet, Button} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
@@ -6,10 +6,12 @@ import Theme from '../settings/theme.jsx';
 import * as Notification from "expo-notifications"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EventRegister } from 'react-native-event-listeners'
+import TimerMixin from 'react-timer-mixin';
+import Settings from '../settings/Settings.jsx'
+
 
 const Main = () => {
   const [precipitacion, setPrecipitacion] = useState(0.0)
-  const [minutos, setMinutos] = useState(0)
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
   const {colors} = useTheme();
@@ -24,9 +26,9 @@ const Main = () => {
         'Access-Control-Allow-Origin': "*"
       }
     }))
-    const json = await response.json()
-    setPrecipitacion(json.current.precip_mm)
-    //setPrecipitacion(Math.round(Math.random()*100))
+    //const json = await response.json()
+    //setPrecipitacion(json.current.precip_mm)
+    setPrecipitacion(Math.round(Math.random()*100))
   }
 
   Notification.setNotificationHandler({
@@ -67,28 +69,40 @@ const Main = () => {
   },[theme.lastUpdate.millisec])
 
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     if(theme.updateTime.seconds != 0  &&  theme.updateTime.seconds!= null){
       fetchPrecipitacion();
       updateTime()
     }
-  },[])
+  },[])*/
 
   const cantSec =()=>{
     const nowMillisec = new Date().getTime()
-    return (nowMillisec - theme.lastUpdate.millisec)/1000;
+    return ((nowMillisec - theme.lastUpdate.millisec)/1000)*60;
   }
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if(theme.updateTime.seconds != 0 && theme.updateTime.seconds != null){
-        if (cantSec() >= theme.updateTime.seconds){ 
-          setMinutos(0)
-          updateTime()
+
+  class Timer extends Component {
+    componentDidMount(){
+      TimerMixin.setInterval.call(() => {
+        if(theme.updateTime.seconds != null && theme.updateTime.seconds != 0){
+          if (cantSec() >= theme.updateTime.seconds){ 
+            //fetchPrecipitacion()
+            updateTime()
+          }
         }
-      }
+      }, 1000)
+    }
+
+  }
+
+  const tim = new Timer()
+  tim.componentDidMount()
+  /*useEffect(() => {
+    const timer = setInterval(() => {
+      
     }, 1000)
     return () => clearInterval(timer)
-  },[date])
+  },[])*/
 
   useEffect(() => {
     if(precipitacion > 50){

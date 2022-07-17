@@ -8,8 +8,12 @@ export default function Settings(){
   const [lastUpdate, setLastUpdate] = useState(null);
   const appFontSize = fontSize
   const appUpdateTime= fetchCoolDown
-  const appLastUpdate = lastUpdate
+  //const appLastUpdate = lastUpdate
 
+  const saveSetting = (key, value) => {
+    const stringifiedValue = JSON.stringify(value)
+    AsyncStorage.setItem(key, stringifiedValue);
+  };
 
   useEffect( ()=>{
     AsyncStorage.getItem("updateTime").then(
@@ -25,6 +29,7 @@ export default function Settings(){
      console.log(error);
    })
   });
+
   useEffect(()=>{
     AsyncStorage.getItem("fontSize").then(
       data => {
@@ -47,7 +52,6 @@ export default function Settings(){
         if(data){
           const value = JSON.parse(data);
           setLastUpdate(value);
-         
         }else{
           setLastUpdate(null);
         }
@@ -81,8 +85,9 @@ export default function Settings(){
 
   useEffect(()=>{
     let eventRegister = EventRegister.addEventListener(
-      "changeLastUpdate" , value =>{
+      "changeLastUpdate" , value => {
         setLastUpdate(value);
+        saveSetting("lastUpdate", value)
       }
     )
     return ()=>{
@@ -93,6 +98,6 @@ export default function Settings(){
   return({
     fontSize: appFontSize,
     fetchCoolDown: appUpdateTime,
-    lastUpdate: appLastUpdate
+    lastUpdate: lastUpdate
   });
 }
