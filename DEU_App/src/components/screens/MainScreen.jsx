@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, StyleSheet, Button} from 'react-native'
+import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme.jsx';
 import * as Notification from "expo-notifications"
 import * as RootNavigation from '../../navigation/RootNavigation'
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Main = () => {
   const [precipitacion, setPrecipitacion] = useState(0.0)
@@ -15,9 +14,19 @@ const Main = () => {
   const place = "La Plata"
   const {colors} = useTheme();
   const theme= Theme();
+
+
+  useEffect(async()=>{
+    const appData = await AsyncStorage.getItem('isAppFirstLaunched')
+    if(appData == null){
+      AsyncStorage.setItem('isAppFirstLaunched', "false")
+      RootNavigation.navigate("Guia de inicio")
+    }
+    return ()=>{}
+  },[])
   
   const fetchPrecipitacion = async () => {
-    const response = await (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
+    /*const response = (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
     {
       method: "GET",
       headers: {
@@ -25,9 +34,10 @@ const Main = () => {
       }
     }))
     const json = await response.json()
-    setPrecipitacion(json.current.precip_mm)
-    //setPrecipitacion(Math.round(Math.random()*100))
+    setPrecipitacion(json.current.precip_mm)*/
+    setPrecipitacion(Math.round(Math.random()*100))
   }
+  /*
   Notification.setNotificationHandler({
     handleNotification: async() => {
       return {
@@ -43,7 +53,6 @@ const Main = () => {
       buttonTitle: 'Ir a recomendaciones'
     } 
   ]); 
-
 
   useEffect(()=>{
     Notification.addNotificationResponseReceivedListener(response =>{
@@ -63,7 +72,7 @@ const Main = () => {
       trigger: null
     })
     
-  }
+  }*/
 
   useEffect(()=>{
     fetchPrecipitacion()
@@ -78,25 +87,31 @@ const Main = () => {
       }else{
         setMinutos(minutos+1)
       }
-       
-
     }, 60000)
     return () => clearInterval(timer)
   },[minutos])
 
   useEffect(() => {
     if(precipitacion > 50){
-      handleNotification()
+      //handleNotification()
     }
   }, [precipitacion])
 
 
   return (
-    <View style={styles.container} accessible={true}>
-        <View style={{alignItems: "center"}}>
+    <View style={{flex:1}}>
+      <View style={{justifyContent:'flex-end', flexDirection:'row', margin:5}}>
+          <TouchableOpacity accessibilityRole="button" >
+              <Text style={[styles.text, {fontSize: theme.fontSizes.title+5, color: colors.text, backgroundColor: colors.primary}]} 
+                      onPress={() => { RootNavigation.navigate("Guia de inicio")}}> ?</Text>
+          </TouchableOpacity>
+      </View>
+      <View style={styles.container} accessible={true}> 
+        <View style={{alignItems:'center', paddingTop:5}} >
           <Text style={{fontSize: theme.fontSizes.title, fontWeight: "bold", color:colors.text}}>Nivel de precipitación</Text>
           <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
+        
         
         <View style={{backgroundColor:colors.card, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150}}>
           <RNSpeedometer
@@ -143,6 +158,8 @@ const Main = () => {
         </View>
       
       </View>
+    </View>
+    
   )
 }
 
@@ -163,7 +180,15 @@ const styles = StyleSheet.create({
   container_pecipitation:{
     margin: 50,
     marginTop: 80,
-    marginBottom: 20,
+    marginBottom: 10,
     padding:1
-  }
+  },
+  text: {
+    borderRadius:5,
+    alignContent:'center',
+    alignItems:'center',
+    paddingRight:10,
+    margin:5,
+    paddingLeft:2
+}
 })
