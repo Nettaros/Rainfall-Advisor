@@ -12,39 +12,30 @@ export default function Settings(){
 
   const saveSetting = (key, value) => {
     const stringifiedValue = JSON.stringify(value)
+    AsyncStorage.removeItem(key)
     AsyncStorage.setItem(key, stringifiedValue);
   };
 
-  useEffect( ()=>{
-    AsyncStorage.getItem("updateTime").then(
-     data => {
-       if(data){
-           const value = JSON.parse(data);
-           setFetchCoolDown(value)
-       }else{
-           setFetchCoolDown(900);
-       }
-     }
-   ).catch((error) => {
-     console.log(error);
-   })
-  });
 
-  useEffect(()=>{
-    AsyncStorage.getItem("fontSize").then(
-      data => {
-        if(data){
-          const value = JSON.parse(data);
-          setFontSize(value);
-          
-        }else{
-         setFontSize(20);
-        }
+  useEffect(async()=>{
+    try{
+      const setting = await AsyncStorage.multiGet(["fontSize","updateTime"]);
+      if(setting){
+        setFontSize(JSON.stringify(setting[0][1]));
+        setFetchCoolDown(JSON.stringify(setting[1][1]));
+      }else{
+        setFontSize(JSON.stringify(20));
+        saveSetting("fontSize",20);
+        setFetchCoolDown(JSON.stringify(900));
+        saveSetting("updateTime", 900)
       }
-    ).catch((error) => {
+    }catch(error){
       console.log(error);
-    })
-  });
+    }
+
+
+
+  })  
 
   useEffect(()=>{
     AsyncStorage.getItem("lastUpdate").then(

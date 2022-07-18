@@ -17,6 +17,7 @@ const Main = () => {
   const {colors} = useTheme();
   const theme= Theme();
   const [date, setDate] = useState(null)
+  const [time , setTime] = useState(null)
 
   const fetchPrecipitacion = async () => {
     const response = await(await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
@@ -68,6 +69,10 @@ const Main = () => {
     setDate(convertMillisecToDate(theme.lastUpdate.millisec));
   },[theme.lastUpdate.millisec])
 
+  useEffect(async()=>{
+    setTime(theme.updateTime.seconds)
+  },[theme.updateTime.seconds])
+
 
   /*useEffect(()=>{
     if(theme.updateTime.seconds != 0  &&  theme.updateTime.seconds!= null){
@@ -95,8 +100,8 @@ const Main = () => {
 
   }
 
-  const tim = new Timer()
-  tim.componentDidMount()
+  //const tim = new Timer()
+  //tim.componentDidMount()
   /*useEffect(() => {
     const timer = setInterval(() => {
       
@@ -113,6 +118,7 @@ const Main = () => {
 
   return (
     <View style={styles.container} accessible={true}>
+        <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>{time}</Text>
         <View style={{alignItems: "center"}}>
           <Text style={{fontSize: theme.fontSizes.title, fontWeight: "bold", color:colors.text}}>Nivel de precipitación</Text>
           <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>

@@ -21,10 +21,21 @@ const SettingScreen = () => {
       getSettings()
     }, []);
     
-    const saveSetting = (key, value) => {
+    const saveSetting = async (key, value) => {
       const stringifiedValue = JSON.stringify(value)
-      AsyncStorage.setItem(key, stringifiedValue);
+      await AsyncStorage.setItem(key, stringifiedValue);
     };
+
+    const updateSetting=async (key, value) =>{
+      try{
+        await AsyncStorage.removeItem(key)
+        const stringifiedValue = JSON.stringify(value);
+        console.log(stringifiedValue)
+        saveSetting(key, value)
+      }catch(error){
+        console.log(error)
+      }
+    }
 
     const toMinutes = (seconds) => {
       const min = seconds/60
@@ -80,7 +91,7 @@ const SettingScreen = () => {
           name: "Chica",
           selected: fontSize === 16,
           onPress: () => {
-            saveSetting('fontSize', 16)
+            updateSetting("fontSize", 16)
             setFontSize(16)
             EventRegister.emit("changeFontSize", 16);
             setFontSizeModalVisible(false)
@@ -91,7 +102,7 @@ const SettingScreen = () => {
           name: "Mediana",
           selected: fontSize === 20,
           onPress: () => {
-            saveSetting("fontSize", 20)
+            updateSetting("fontSize", 20)
             setFontSize(20)
             EventRegister.emit("changeFontSize", 20);
             setFontSizeModalVisible(false)
@@ -103,7 +114,7 @@ const SettingScreen = () => {
           name: "Grande",
           selected: fontSize === 24,
           onPress: () => {
-            saveSetting("fontSize", 24)
+            updateSetting("fontSize", 24)
             setFontSize(24)
             EventRegister.emit("changeFontSize", 24);
             setFontSizeModalVisible(false)
@@ -116,7 +127,7 @@ const SettingScreen = () => {
           name: "Desactivado",
           selected: updateTime === 0,
           onPress: () => {
-            saveSetting("updateTime", 0);
+            updateSetting("updateTime", 0);
             setUpdateTime(0);
             EventRegister.emit("changeTime", 0);
             setUpdateTimeModalVisible(false);
@@ -127,7 +138,7 @@ const SettingScreen = () => {
           name: "15 minutos",
           selected: updateTime === 900,
           onPress: () => {
-            saveSetting("updateTime", 900);
+            updateSetting("updateTime", 900);
             setUpdateTime(900);
             EventRegister.emit("changeTime", 900);
             setUpdateTimeModalVisible(false);
@@ -138,7 +149,7 @@ const SettingScreen = () => {
           name: "30 minutos",
           selected: updateTime === 1800,
           onPress: () => {
-            saveSetting("updateTime", 1800);
+            updateSetting("updateTime", 1800);
             setUpdateTime(1800);
             EventRegister.emit("changeTime", 1800);
             setUpdateTimeModalVisible(false);
@@ -149,7 +160,7 @@ const SettingScreen = () => {
           name: "45 minutos",
           selected: updateTime === 2700,
           onPress: () => {
-            saveSetting("updateTime", 2700)
+            updateSetting("updateTime", 2700)
             setUpdateTime(2700)
             EventRegister.emit("changeTime", 2700);
             setUpdateTimeModalVisible(false)
@@ -162,7 +173,7 @@ const SettingScreen = () => {
           name: "Tema claro",
           selected: theme === "light",
           onPress: () => {
-            saveSetting("theme","light")
+            updateSetting("theme","light")
             setTheme("light")
             EventRegister.emit("changeTheme", false);
             setThemeVisible(false)
@@ -173,7 +184,7 @@ const SettingScreen = () => {
           name: "Tema oscuro",
           selected: theme === "dark",
           onPress: () => {
-            saveSetting("theme","dark")
+            updateSetting("theme","dark")
             setTheme("dark")
             EventRegister.emit("changeTheme", true);
             setThemeVisible(false)
@@ -183,41 +194,25 @@ const SettingScreen = () => {
       ]
     };
   
-    const getSettings = () => {
-      AsyncStorage.getItem("fontSize").then(data => {
-          if(data){
-            setFontSize(JSON.parse(data));
-          }else{
-              setFontSize(16)
-              const value = JSON.stringify(16)
-              AsyncStorage.setItem("fontSize", value)
-          }
-
-          AsyncStorage.getItem("updateTime").then(data => {
-            if(data){
-              setUpdateTime(JSON.parse(data));
-            }else{
-                setUpdateTime(900)
-                const value = JSON.stringify(900)
-                AsyncStorage.setItem("updateTime", value)
-            }
-            
-            AsyncStorage.getItem("theme").then(data =>{
-              if (data){
-                setTheme(JSON.parse(data));
-              }else{
-                setTheme("light")
-                const value = JSON.stringify("light")
-                AsyncStorage.setItem("theme", value)
-              }
-
-              setReady(true)
-            }).catch((error) => console.log(error));
-        
-          }).catch((error) => console.log(error));
-
-      }).catch((error) => console.log(error));
-    
+    const getSettings = async () => {
+      try{
+        const setting = await AsyncStorage.multiGet(["fontSize","updateTime","theme"]);
+        if(setting){
+          setFontSize(JSON.stringify(setting[0][1]));
+          setUpdateTime(JSON.stringify(setting[1][1]));
+          setTheme(JSON.stringify(setting[2][1]));
+          setReady(true)
+        }else{
+          setFontSize(JSON.stringify(16));
+          saveSetting("fontSize",16);
+          setTheme(JSON.stringify("light"));
+          saveSetting("theme", "light");
+          setUpdateTime(JSON.stringify(900));
+          saveSetting("updateTime", 900)
+        }
+      }catch(error){
+        console.log(error);
+      }
     };
     
     return (
