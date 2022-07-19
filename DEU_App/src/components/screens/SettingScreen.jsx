@@ -13,7 +13,6 @@ const SettingScreen = () => {
     const [fontSizeModalVisible, setFontSizeModalVisible] = useState(false);
     const [updateTimeModalVisible, setUpdateTimeModalVisible] = useState(false);
     const [themeVisible, setThemeVisible] = useState(false);
-
     const {colors} = useTheme();
     
 
@@ -30,7 +29,6 @@ const SettingScreen = () => {
       try{
         await AsyncStorage.removeItem(key)
         const stringifiedValue = JSON.stringify(value);
-        console.log(stringifiedValue)
         saveSetting(key, value)
       }catch(error){
         console.log(error)
@@ -92,6 +90,9 @@ const SettingScreen = () => {
           selected: fontSize === 16,
           onPress: () => {
             updateSetting("fontSize", 16)
+            updateSetting("subheding",18);
+            updateSetting("title", 20);
+            updateSetting("small", 16);
             setFontSize(16)
             EventRegister.emit("changeFontSize", 16);
             setFontSizeModalVisible(false)
@@ -104,6 +105,9 @@ const SettingScreen = () => {
           onPress: () => {
             updateSetting("fontSize", 20)
             setFontSize(20)
+            updateSetting("subheding",22);
+            updateSetting("title", 24);
+            updateSetting("small", 18);
             EventRegister.emit("changeFontSize", 20);
             setFontSizeModalVisible(false)
           },
@@ -114,7 +118,10 @@ const SettingScreen = () => {
           name: "Grande",
           selected: fontSize === 24,
           onPress: () => {
-            updateSetting("fontSize", 24)
+            updateSetting("fontSize", 24);
+            updateSetting("subheding",26);
+            updateSetting("title", 28);
+            updateSetting("small", 22);
             setFontSize(24)
             EventRegister.emit("changeFontSize", 24);
             setFontSizeModalVisible(false)
@@ -198,13 +205,16 @@ const SettingScreen = () => {
       try{
         const setting = await AsyncStorage.multiGet(["fontSize","updateTime","theme"]);
         if(setting){
-          setFontSize(JSON.stringify(setting[0][1]));
-          setUpdateTime(JSON.stringify(setting[1][1]));
-          setTheme(JSON.stringify(setting[2][1]));
+          setFontSize(JSON.parse(setting[0][1]));
+          setUpdateTime(JSON.parse(setting[1][1]));
+          setTheme(JSON.parse(setting[2][1]));
           setReady(true)
         }else{
-          setFontSize(JSON.stringify(16));
-          saveSetting("fontSize",16);
+          setFontSize(JSON.stringify(20));
+          saveSetting("fontSize",20);
+          saveSetting("heading",22);
+          saveSetting("title",24);
+          saveSetting("small",18);
           setTheme(JSON.stringify("light"));
           saveSetting("theme", "light");
           setUpdateTime(JSON.stringify(900));

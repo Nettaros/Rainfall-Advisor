@@ -18,6 +18,8 @@ const Main = () => {
   const theme= Theme();
   const [date, setDate] = useState(null)
   const [time , setTime] = useState(null)
+  
+  console.log("Small: ", theme.fontSizes.small)
 
   const fetchPrecipitacion = async () => {
     const response = await(await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
@@ -62,14 +64,14 @@ const Main = () => {
     const stringifiedValue = JSON.stringify(now)
     AsyncStorage.setItem("lastUpdate", stringifiedValue);
     EventRegister.emit("changeLastUpdate", now);
-    setDate(convertMillisecToDate(now));
+    setDate(convertMillisecToDate(now)); 
   }
 
   useEffect(()=>{
     setDate(convertMillisecToDate(theme.lastUpdate.millisec));
   },[theme.lastUpdate.millisec])
 
-  useEffect(async()=>{
+  useEffect(()=>{
     setTime(theme.updateTime.seconds)
   },[theme.updateTime.seconds])
 
@@ -118,10 +120,10 @@ const Main = () => {
 
   return (
     <View style={styles.container} accessible={true}>
-        <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>{time}</Text>
+        <Text style={{fontSize: theme.fontSizes.body, fontStyle: "italic", color:colors.text}}>{time}</Text>
         <View style={{alignItems: "center"}}>
           <Text style={{fontSize: theme.fontSizes.title, fontWeight: "bold", color:colors.text}}>Nivel de precipitación</Text>
-          <Text style={{fontSize: theme.fontSizes.subheading,fontStyle: "italic", color:colors.text}}>La Plata</Text>
+          <Text style={{fontSize: theme.fontSizes.subheading, fontStyle: "italic", color:colors.text}}>La Plata</Text>
         </View>
         
         <View style={{backgroundColor:colors.card, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150}}>
@@ -133,7 +135,7 @@ const Main = () => {
               minValue={0}
               allowedDecimals={1}
               defaultValue={0}
-              labelNoteStyle={{fontSize:theme.fontSizes.body,justifyContent:"center", color: "#000000"}}
+              labelNoteStyle={{fontSize: theme.fontSizes.body, justifyContent:"center", color: "#000000"}}
               labels={[
                 {
                   name: ((precipitacion != 1) ? "milímetros" : "milímetro") + "\nSin riesgo",
@@ -167,7 +169,7 @@ const Main = () => {
           accessibilityLabel="Actualizar precipitación" 
         />
         <View style={[styles.info_container, styles.row]}>
-          <Text style={{fontSize: theme.fontSizes.body,color: colors.text}}>Ultima actualización: {date}</Text>
+          <Text style={{fontSize: theme.fontSizes.body, color: colors.text}}>Ultima actualización: {date}</Text>
         </View>
       
       </View>
