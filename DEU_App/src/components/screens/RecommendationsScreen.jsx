@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import {View, Text, StyleSheet, ScrollView} from 'react-native'
+import React from 'react'
 import {createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer }  from '@react-navigation/native';
 import RecoBeforeScreen from './RecommendationsScreenBefore.jsx'
@@ -15,16 +14,15 @@ const RecommendationsScreen = (value) => {
     const Tab = createMaterialTopTabNavigator()
     const initialRouteName = (value != null)?value.route.params:"Antes";
 
- 
     return (
         <NavigationContainer independent={true} theme={themeNavigator} >
-                <Tab.Navigator screenOptions={{
-                    tabBarLabelStyle:{ fontSize: theme.fontSizes.body},
-                }} initialRouteName={initialRouteName}>
-                    <Tab.Screen name="Antes" component={RecoBeforeScreen}/>
-                    <Tab.Screen name="Durante" component={RecoDuringScreen}/>
-                    <Tab.Screen name="Después" component={RecoAfterScreen}/>
-                </Tab.Navigator>
+            <Tab.Navigator screenOptions={{
+                tabBarLabelStyle:{ fontSize: theme.fontSizes.body},
+            }} initialRouteName={initialRouteName}>
+                <Tab.Screen name="Antes" component={RecoBeforeScreen}/>
+                <Tab.Screen name="Durante" component={RecoDuringScreen}/>
+                <Tab.Screen name="Después" component={RecoAfterScreen}/>
+            </Tab.Navigator>
         </NavigationContainer>
     )
 }

@@ -8,7 +8,8 @@ import * as RootNavigation from '../../navigation/RootNavigation'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners'
 import TimerMixin from 'react-timer-mixin';
-import Settings from '../settings/Settings.jsx'
+import { checkPluginState } from 'react-native-reanimated/lib/reanimated2/core.js';
+
 
 
 const Main = () => {
@@ -16,22 +17,11 @@ const Main = () => {
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
   const {colors} = useTheme();
-  const theme= Theme();
+  const theme = Theme();
   const [date, setDate] = useState(null)
-  const [time , setTime] = useState(null)
 
-
-  useEffect(async()=>{
-    const appData = await AsyncStorage.getItem('isAppFirstLaunched')
-    if(appData == null){
-      AsyncStorage.setItem('isAppFirstLaunched', "false")
-      RootNavigation.navigate("Guia de inicio")
-    }
-    return ()=>{}
-  },[])
-
-
-  console.log("Small: ", theme.fontSizes.small)
+  console.log("letra subheading: ", theme.fontSizes.subheading)
+  console.log("letra title: ", theme.fontSizes.title)
 
   const fetchPrecipitacion = async () => {
     /*const response = (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
@@ -44,6 +34,39 @@ const Main = () => {
     const json = await response.json()
     setPrecipitacion(json.current.precip_mm)*/
     setPrecipitacion(Math.round(Math.random()*100))
+  }
+  
+  const handleNotification = () => {
+    Notification.dismissAllNotificationsAsync();
+    Notification.scheduleNotificationAsync({
+      content: {
+        title: "Esta lloviendo mucho!",
+        body: "La lluvia esta pasando los 50mm en este momento, estate atento!",
+        categoryIdentifier: "recommendation_question"
+        
+      },
+      trigger: null
+    })
+    
+  }
+
+  const convertMillisecToDate = (millisec) =>{
+    const fecha = new Date(millisec);
+    return  fecha.toLocaleString();
+  }
+  
+  const updateTime = async () =>{
+    const now = new Date().getTime();
+    const stringifiedValue = JSON.stringify(now)
+    AsyncStorage.setItem("lastUpdate", stringifiedValue);
+    EventRegister.emit("changeLastUpdate", now);
+    setDate(convertMillisecToDate(now)); 
+    fetchPrecipitacion()
+  }
+
+  const cantSec =()=>{
+    const nowMillisec = new Date().getTime()
+    return ((nowMillisec - theme.lastUpdate.millisec)/1000)*60;
   }
   /*
   Notification.setNotificationHandler({
@@ -60,107 +83,72 @@ const Main = () => {
       identifier: 'send_recommendation',
       buttonTitle: 'Ir a recomendaciones'
     } 
-  ]); 
+  ]);*/ 
 
   useEffect(()=>{
+    async function getIsAppFirstLaunched(){
+      const appData = await AsyncStorage.getItem('isAppFirstLaunched')
+      if(appData == null){
+        await AsyncStorage.setItem('isAppFirstLaunched', "false")
+        RootNavigation.navigate("Guia de inicio")
+      }
+    }
+    getIsAppFirstLaunched()
+    return ()=>{}
+  },[])
+
+  /*useEffect(()=>{
     Notification.addNotificationResponseReceivedListener(response =>{
         RootNavigation.navigate("Recomendaciones","Durante")
     });
+  },[])*/
+
+  useEffect(()=>{
+    if(theme.updateTime.seconds != 0  &&  theme.updateTime.seconds!= null){
+      updateTime()
+    }
   },[])
-
-  const handleNotification = () => {
-    Notification.dismissAllNotificationsAsync();
-    Notification.scheduleNotificationAsync({
-      content: {
-        title: "Esta lloviendo mucho!",
-        body: "La lluvia esta pasando los 50mm en este momento, estate atento!",
-        categoryIdentifier: "recommendation_question"
-        
-      },
-      trigger: null
-    })
-    
-  }*/
-
-  const convertMillisecToDate = (millisec) =>{
-    const fecha = new Date(millisec);
-    return  fecha.toLocaleString();
-  }
-  
-  const updateTime = async () =>{
-    const now = new Date().getTime();
-    const stringifiedValue = JSON.stringify(now)
-    AsyncStorage.setItem("lastUpdate", stringifiedValue);
-    EventRegister.emit("changeLastUpdate", now);
-    setDate(convertMillisecToDate(now)); 
-  }
 
   useEffect(()=>{
     setDate(convertMillisecToDate(theme.lastUpdate.millisec));
   },[theme.lastUpdate.millisec])
 
-  useEffect(()=>{
-    setTime(theme.updateTime.seconds)
-  },[theme.updateTime.seconds])
-
-
-  /*useEffect(()=>{
-    if(theme.updateTime.seconds != 0  &&  theme.updateTime.seconds!= null){
-      fetchPrecipitacion();
-      updateTime()
-    }
-  },[])*/
-
-  const cantSec =()=>{
-    const nowMillisec = new Date().getTime()
-    return ((nowMillisec - theme.lastUpdate.millisec)/1000)*60;
-  }
-
-  class Timer extends Component {
-    componentDidMount(){
-      TimerMixin.setInterval.call(() => {
-        if(theme.updateTime.seconds != null && theme.updateTime.seconds != 0){
-          if (cantSec() >= theme.updateTime.seconds){ 
-            //fetchPrecipitacion()
-            updateTime()
-          }
-        }
-      }, 1000)
-    }
-
-  }
-
-  //const tim = new Timer()
-  //tim.componentDidMount()
-  /*useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
-      
+      if(theme.updateTime.seconds != null && theme.updateTime.seconds != 0){
+        if (cantSec() >= theme.updateTime.seconds){ 
+          updateTime()
+        }
+      }
     }, 1000)
     return () => clearInterval(timer)
-  },[])*/
+  })
 
+  
   useEffect(() => {
     if(precipitacion > 50){
       //handleNotification()
     }
-  }, [precipitacion])
+  },[precipitacion])
 
+  
 
   return (
-    <View style={{flex:1}}>
+    <View style={{flex:1, borderWidth:((precipitacion>65)?4:0), borderColor:((precipitacion>65)?'red':null)}}>
       <View style={{justifyContent:'flex-end', flexDirection:'row', margin:5}}>
           <TouchableOpacity accessibilityRole="button" >
-              <Text style={[styles.text, {fontSize: theme.fontSizes.title+5, color: colors.text, backgroundColor: colors.primary}]} 
-                      onPress={() => { RootNavigation.navigate("Guia de inicio")}}> ?</Text>
+              <Text style={[styles.text, {fontSize: theme.fontSizes.title, color: colors.text, backgroundColor: colors.primary}]} 
+                    onPress={() => { RootNavigation.navigate("Guia de inicio")}}> ?</Text>
           </TouchableOpacity>
       </View>
       <View style={styles.container} accessible={true}> 
         <View style={{alignItems:'center', paddingTop:5}} >
           <Text style={{fontSize: theme.fontSizes.title, fontWeight: "bold", color:colors.text}}>Nivel de precipitación</Text>
-          <Text style={{fontSize: theme.fontSizes.subheading, fontStyle: "italic", color:colors.text}}>La Plata</Text>
+          <Text style={{fontSize: theme.fontSizes.subheading, fontStyle: "italic", color:colors.text}}>Zona de La Plata</Text>
         </View>
         
-        <View style={{backgroundColor:colors.card, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150}}>
+        <View style={{backgroundColor:colors.card, borderRadius:30, paddingLeft: 50, paddingRight: 50, paddingTop: 150, paddingBottom:150,
+        borderWidth:((precipitacion>65)?4:0), borderColor:((precipitacion>65)?'red':null)}}>
           <RNSpeedometer
               accessibleRole="image"
               value={precipitacion} 
@@ -169,7 +157,7 @@ const Main = () => {
               minValue={0}
               allowedDecimals={1}
               defaultValue={0}
-              labelNoteStyle={{fontSize: theme.fontSizes.body, justifyContent:"center", color: "#000000"}}
+              labelNoteStyle={{fontSize:((precipitacion>65)?theme.fontSizes.subheading:theme.fontSizes.body), justifyContent:"center", color: "#000000"}}
               labels={[
                 {
                   name: ((precipitacion != 1) ? "milímetros" : "milímetro") + "\nSin riesgo",

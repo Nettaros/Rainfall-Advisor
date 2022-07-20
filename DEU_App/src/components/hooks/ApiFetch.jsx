@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react'
-import {Text} from 'react-native'
 
 const Precipitacion = () => {
     const [precipitacion, setPrecipitacion] = useState(0.0)
@@ -9,7 +8,6 @@ const Precipitacion = () => {
         const response = await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no")
         const json = await response.json()
         setPrecipitacion(json.current.precip_mm)
-        console.log("Actualizado")
         return precipitacion
     }
     useEffect(() => {

@@ -8,7 +8,6 @@ const darkTheme = {
       border: "#63ace5",
       notification: "red",
     },
-    
   };
 
 const lightTheme = {

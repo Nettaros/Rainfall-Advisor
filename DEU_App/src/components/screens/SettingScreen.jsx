@@ -15,7 +15,6 @@ const SettingScreen = () => {
     const [themeVisible, setThemeVisible] = useState(false);
     const {colors} = useTheme();
     
-
     useEffect(() => {
       getSettings()
     }, []);
@@ -29,7 +28,7 @@ const SettingScreen = () => {
       try{
         await AsyncStorage.removeItem(key)
         const stringifiedValue = JSON.stringify(value);
-        saveSetting(key, value)
+        saveSetting(key, stringifiedValue)
       }catch(error){
         console.log(error)
       }
@@ -92,7 +91,7 @@ const SettingScreen = () => {
             updateSetting("fontSize", 16)
             updateSetting("subheding",18);
             updateSetting("title", 20);
-            updateSetting("small", 16);
+            updateSetting("small", 14);
             setFontSize(16)
             EventRegister.emit("changeFontSize", 16);
             setFontSizeModalVisible(false)
@@ -227,7 +226,6 @@ const SettingScreen = () => {
     
     return (
       <View style={{backgroundColor:colors.background}}>
-         
         {!ready 
         ? 
         <View style={{backgroundColor:colors.background}}></View>

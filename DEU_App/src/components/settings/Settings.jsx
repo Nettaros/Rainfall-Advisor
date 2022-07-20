@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState, useEffect } from 'react'
-import { InteractionManager } from 'react-native';
+import { useState, useEffect } from 'react'
 import { EventRegister } from 'react-native-event-listeners';
 
 export default function Settings(){
@@ -23,20 +22,17 @@ export default function Settings(){
     return Number(value)
   };
 
-
   useEffect(()=>{
-    async function fechData(){
+    async function fetchData(){
       try{
-        const setting = await AsyncStorage.multiGet(["fontSize","subheading","title","small","updateTime"]);
-        
-        if(setting){
-          
+        const setting = await AsyncStorage.multiGet(["fontSize","subheading","title","small","updateTime"]);        
+        if((setting)&&(setting[0][1])){
           setFontSize(parseInt(setting[0][1]));
           setSubheading(parseInt(setting[1][1]));
+          console.log("Letra grande: ",setting)
           setTitle(parseInt(setting[2][1]));
           setSmall(parseInt(setting[3][1]));
           setFetchCoolDown(parseInt(setting[4][1]));
-          
         }else{
           setFontSize(JSON.stringify(20));
           saveSetting("fontSize",20);
@@ -50,8 +46,8 @@ export default function Settings(){
         console.log(error);
       }
     }
-    fechData()
-  });  
+    fetchData()
+  },[]);  
 
   useEffect(()=>{
     async function getLastUpdate(){
@@ -66,10 +62,9 @@ export default function Settings(){
       }catch(error){
         console.log(error);
       }
-    
     }
     getLastUpdate()
-  });
+  },[]);
 
   useEffect(()=>{
     let eventRegister = EventRegister.addEventListener(
@@ -77,8 +72,7 @@ export default function Settings(){
         setFontSize(value);
         setSubheading(value+2);
         setTitle(value+4)
-        setSmall(value-1)
-       
+        setSmall(value-2)
       }
     )
     return () => {

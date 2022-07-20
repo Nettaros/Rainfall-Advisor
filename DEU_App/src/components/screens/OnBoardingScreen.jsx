@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { SafeAreaView, StyleSheet, Dimensions, FlatList, StatusBar, View, Text, TouchableOpacity, Alert } from 'react-native'
+import React  from 'react'
+import { SafeAreaView, StyleSheet, Dimensions, FlatList, View, Text, TouchableOpacity} from 'react-native'
 import {useTheme} from '@react-navigation/native';
 import Theme from '../settings/theme';
 import * as RootNavigation from '../../navigation/RootNavigation'
@@ -29,7 +29,6 @@ const OnBoardingScreen = () =>{
     const theme = Theme();
     const {colors} = useTheme();
     const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
-    const inicio = true
     const ref = React.useRef();
 
 
@@ -109,14 +108,12 @@ const OnBoardingScreen = () =>{
     
     return (
         <SafeAreaView style={{flex:1, backgroundColor: colors.background}}>
-
             <FlatList 
                 ref={ref}
                 onMomentumScrollEnd={updateCurrentSlideIndex}
                 pagingEnabled
                 data={slides} 
                 horizontal
-                //contentContainerStyle={{height:height * 0.75}} 
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item}) => <Slide item={item} />}
             />

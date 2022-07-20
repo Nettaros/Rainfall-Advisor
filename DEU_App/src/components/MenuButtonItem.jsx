@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, TouchableOpacity,StyleSheet, View} from 'react-native'
+import {Text, TouchableOpacity,StyleSheet} from 'react-native'
 import {useTheme} from '@react-navigation/native';
 import Theme from "./settings/theme"
 
@@ -23,10 +23,7 @@ const style = StyleSheet.create({
         alignItems:'center',
         padding:1,
         flexDirection:'row',
-
     },
-   
-    
 })
 
 export default MenuButtonItem

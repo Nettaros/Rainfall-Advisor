@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import {StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import {useTheme} from '@react-navigation/native';
@@ -28,7 +28,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen name="Configuración" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
             <Drawer.Screen name="Sobre la Aplicación" component={AboutScreen}/>
-            <Drawer.Screen name="Guia de inicio" component={OnBoardingScreen}  />
+            <Drawer.Screen name="Guia de inicio" component={OnBoardingScreen}/>
         </Drawer.Navigator>
         
     );
@@ -38,14 +38,11 @@ const MenuItem = ({navigation}) =>{
     const {colors} = useTheme();
     const theme = Theme();
     return (
-
         <DrawerContentScrollView 
             style = {[style.container, {backgroundColor: colors.primary}]}> 
-            
             <TouchableOpacity accessibilityRole="button" accessibilityHint="Cerrar menú" onPress={()=>navigation.toggleDrawer()}>
                 <Text style={[style.text, {color: colors.text, fontSize: theme.fontSizes.subheading}]}>X</Text>
             </TouchableOpacity>
-            
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
@@ -54,15 +51,7 @@ const MenuItem = ({navigation}) =>{
                 onPress={()=> navigation.navigate('Precipitación')}
                 hint="Nivel de precipitación en La Plata"  
             />
-            
-            <View style={[style.separator, {borderBottomColor:colors.text}]} />
-
-            <MenuButtonItem
-                text="Configuración"
-                onPress={()=> navigation.navigate('Configuración')}  
-                hint="Configuración de la aplicación"  
-            />
-            
+        
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <MenuButtonItem
@@ -81,7 +70,13 @@ const MenuItem = ({navigation}) =>{
             
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
-            
+            <MenuButtonItem
+                text="Configuración"
+                onPress={()=> navigation.navigate('Configuración')}  
+                hint="Configuración de la aplicación"  
+            />
+
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
             <Text accessibilityRole="text" style={[style.footerText, {color: colors.text, fontSize: theme.fontSizes.small}]}>2020 - Diseño de Experiencia de Usuario</Text>  
         </DrawerContentScrollView>
@@ -92,10 +87,8 @@ const MenuItem = ({navigation}) =>{
 
 
 const style = StyleSheet.create({
-    
     container: {
-        padding: 15,
-       
+        padding: 15, 
     },
     separator:{
         borderBottomWidth: StyleSheet.hairlineWidth,

@@ -9,9 +9,7 @@ export default function App() {
   return (
         <NavigationContainer theme={theme} ref={navigationRef} >
           <DrawerNavigation/>
-        </NavigationContainer>
-      
-      
+        </NavigationContainer> 
   );
 }
 

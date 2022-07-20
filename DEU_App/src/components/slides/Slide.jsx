@@ -15,6 +15,7 @@ const Slide = ({item}) =>{
 )};
 
 export default Slide;
+
 const styles= StyleSheet.create({
     title:{
         fontWeight: 'bold',
