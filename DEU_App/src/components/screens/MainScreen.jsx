@@ -33,8 +33,10 @@ const Main = () => {
   }
 
   useEffect(() => {
-    if(theme.fontSizes.body != null){
+    if(theme.fontSizes.body != null && theme.fontSizes.small != null && theme.fontSizes.subheading != null && theme.fontSizes.title!= null){
       setReady(true)
+    }else{
+      console.log(theme);
     }
   })
 
@@ -51,8 +53,14 @@ const Main = () => {
   }
 
   const convertMillisecToDate = (millisec) =>{
-    const fecha = new Date(millisec);
-    return  fecha.toLocaleString();
+    const date = new Date(millisec);
+    const day = date.getDate()
+    const month = date.getMonth()+1
+    const year = date.getFullYear()
+    const fecha = day + '/'+month + '/'+year
+    const hour = date.toLocaleTimeString()
+    console.log(fecha+ ' , ' +hour )
+    return fecha+ ' - ' +hour;
   }
   
   const updateTime = async () =>{

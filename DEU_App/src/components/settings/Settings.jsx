@@ -36,6 +36,9 @@ export default function Settings(){
             setDarkApp((JSON.parse(setting[5][1]) === "dark")?true:false);
           }else{
             setFontSize(20);
+            setSubheading(22);
+            setSmall(18);
+            setTitle(24);
             saveSetting("fontSize",20);
             saveSetting("subheading",22);
             saveSetting("title", 24);
