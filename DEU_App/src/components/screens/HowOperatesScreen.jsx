@@ -1,13 +1,13 @@
 import React from "react";
 import {View, Text, ScrollView, StyleSheet} from 'react-native'
 import {useTheme} from '@react-navigation/native';
-import Theme from '../settings/theme';
+import Settings from '../settings/Settings';
 import TabListElement from "../style/tabListElement";
 
 
 const HowOperatesScreen = () => {
     const {colors} = useTheme();
-    const theme = Theme();
+    const theme = Settings();
     return (
         <View accessible={true}>
             <ScrollView accessibilityRole="adjustable">

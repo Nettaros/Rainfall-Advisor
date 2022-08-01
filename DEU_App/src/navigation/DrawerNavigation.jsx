@@ -6,7 +6,7 @@ import {useTheme} from '@react-navigation/native';
 //Screens
 import SettingScreen from "../components/screens/SettingScreen";
 import RecommendationsScreen from "../components/screens/RecommendationsScreen";
-import AboutScreen from "../components/screens/AboutScreen";
+import InfoScreen from "../components/screens/InfoScreen";
 import MainScreen from "../components/screens/MainScreen";
 import OnBoardingScreen from "../components/screens/OnBoardingScreen";
 
@@ -14,7 +14,7 @@ import OnBoardingScreen from "../components/screens/OnBoardingScreen";
 import MenuButtonItem from "../components/MenuButtonItem";
 
 //Importamos tema
-import Theme from "../components/settings/theme";
+import Settings from "../components/settings/Settings";
 
 const Drawer = createDrawerNavigator()
 
@@ -27,7 +27,7 @@ export default function DrawerNavigation() {
             <Drawer.Screen name="Precipitación" component={MainScreen}/>
             <Drawer.Screen name="Configuración" component={SettingScreen}/>
             <Drawer.Screen name="Recomendaciones" component={RecommendationsScreen}/>
-            <Drawer.Screen name="Sobre la Aplicación" component={AboutScreen}/>
+            <Drawer.Screen name="Sobre la Aplicación" component={InfoScreen}/>
             <Drawer.Screen name="Guia de inicio" component={OnBoardingScreen}/>
         </Drawer.Navigator>
         
@@ -36,7 +36,7 @@ export default function DrawerNavigation() {
 
 const MenuItem = ({navigation}) =>{
     const {colors} = useTheme();
-    const theme = Theme();
+    const theme = Settings();
     return (
         <DrawerContentScrollView 
             style = {[style.container, {backgroundColor: colors.primary}]}> 

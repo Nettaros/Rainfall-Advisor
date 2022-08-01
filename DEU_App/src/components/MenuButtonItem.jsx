@@ -1,11 +1,11 @@
 import React from 'react'
 import {Text, TouchableOpacity,StyleSheet} from 'react-native'
 import {useTheme} from '@react-navigation/native';
-import Theme from "./settings/theme"
+import Settings from "./settings/Settings"
 
 const MenuButtonItem = ({text,onPress,hint}) =>{
     const {colors} = useTheme();
-    const theme = Theme()
+    const theme = Settings()
     return (
         <TouchableOpacity 
             onPress={onPress}

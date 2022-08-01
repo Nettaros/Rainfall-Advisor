@@ -1,11 +1,11 @@
 import React from 'react'
 import {View, TouchableOpacity, Text, Modal, ScrollView} from 'react-native'
 import {useTheme} from '@react-navigation/native';
-import Theme from "./settings/theme"
+import Settings from "./settings/Settings"
 
 const AppModal = ({modalVisible, setModalVisible, modalBody, title}) => {
     const {colors} = useTheme();
-    const theme = Theme();
+    const theme = Settings();
     return (
         <Modal acesible={true} visible={modalVisible} animationType="slide" style={{backgroundColor:colors.background}}>
                 <View style={{backgroundColor: colors.background, flex:1}}>

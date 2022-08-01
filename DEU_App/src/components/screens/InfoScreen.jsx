@@ -1,12 +1,12 @@
 import React from "react";
 import {View, Text, ScrollView, StyleSheet, Linking, TouchableOpacity} from 'react-native'
 import {Link, useTheme} from '@react-navigation/native';
-import Theme from '../settings/theme';
+import Settings from '../settings/Settings';
 import TabListElement from "../style/tabListElement";
 
 const InfoScreen = () => {
     const {colors} = useTheme();
-    const theme = Theme();
+    const theme = Settings();
     return (
         <View accessible={true}>
             <ScrollView>

@@ -1,11 +1,11 @@
 import { useTheme } from '@react-navigation/native'
 import React from 'react'
 import {Text, StyleSheet} from 'react-native'
-import Theme from '../settings/theme';
+import Settings from '../settings/Settings';
 
 const TabListElement = ({text}) => {
     const {colors} = useTheme();
-    const theme = Theme()
+    const theme = Settings()
     return (
         <Text style={[
             styles.item , {

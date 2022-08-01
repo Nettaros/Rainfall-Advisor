@@ -1,14 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from 'react'
 import { EventRegister } from 'react-native-event-listeners';
+import {lightTheme, darkTheme} from "../settings/themeMode"
 
 export default function Settings(){
-  const [fontSize, setFontSize] = useState();
-  const [fetchCoolDown, setFetchCoolDown]= useState();
-  const [lastUpdate, setLastUpdate] = useState();
-  const [subheading, setSubheading] = useState();
-  const [title, setTitle] = useState();
-  const [small, setSmall] = useState()
+  const [fontSize, setFontSize] = useState(null);
+  const [fetchCoolDown, setFetchCoolDown]= useState(null);
+  const [lastUpdate, setLastUpdate] = useState(null);
+  const [subheading, setSubheading] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [small, setSmall] = useState(null);
+  const [darkApp, setDarkApp] = useState(null);
+  const appTheme = darkApp ? darkTheme : (!darkApp ? lightTheme : null);
  
   //const appLastUpdate = lastUpdate
 
@@ -17,37 +20,37 @@ export default function Settings(){
     AsyncStorage.removeItem(key)
     AsyncStorage.setItem(key, stringifiedValue);
   };
-
-  const parseInt = (value) => {
-    return Number(value)
-  };
-
+  
   useEffect(()=>{
     async function fetchData(){
       try{
-        const setting = await AsyncStorage.multiGet(["fontSize","subheading","title","small","updateTime"]);        
-        if((setting)&&(setting[0][1])){
-          setFontSize(parseInt(setting[0][1]));
-          setSubheading(parseInt(setting[1][1]));
-          console.log("Letra grande: ",setting)
-          setTitle(parseInt(setting[2][1]));
-          setSmall(parseInt(setting[3][1]));
-          setFetchCoolDown(parseInt(setting[4][1]));
-        }else{
-          setFontSize(JSON.stringify(20));
-          saveSetting("fontSize",20);
-          saveSetting("subheading",22);
-          saveSetting("title", 24);
-          saveSetting("small",18)
-          setFetchCoolDown(JSON.stringify(900));
-          saveSetting("updateTime", 900)
-        }
+        await AsyncStorage.multiGet(
+          ["fontSize","subheading","title","small","updateTime","theme"]
+        ).then((setting) => {   
+          if((setting)&&(setting[0][1]&&setting[1][1]&&setting[2][1]&&setting[3][1]&&setting[4][1])){
+            setFontSize(parseFloat(JSON.parse(setting[0][1])));
+            setSubheading(parseFloat(JSON.parse(setting[1][1])));
+            setTitle(parseFloat(JSON.parse(setting[2][1])));
+            setSmall(parseFloat(JSON.parse(setting[3][1])));
+            setFetchCoolDown(parseFloat(JSON.parse(setting[4][1])));
+            setDarkApp((JSON.parse(setting[5][1]) === "dark")?true:false);
+          }else{
+            setFontSize(20);
+            saveSetting("fontSize",20);
+            saveSetting("subheading",22);
+            saveSetting("title", 24);
+            saveSetting("small",18)
+            setFetchCoolDown(900);
+            saveSetting("updateTime", 900)
+            setDarkApp(false)
+            saveSetting("theme", "light")
+          }})
       }catch(error){
         console.log(error);
       }
     }
     fetchData()
-  },[]);  
+  },[]);
 
   useEffect(()=>{
     async function getLastUpdate(){
@@ -103,12 +106,31 @@ export default function Settings(){
     }
   },[])
 
+  useEffect(()=>{
+    let eventRegister = EventRegister.addEventListener(
+      "changeTheme", value =>{
+        setDarkApp(value);
+        saveSetting("theme", value)
+      }
+    )
+    return () => {
+      EventRegister.removeEventListener(eventRegister);
+    };
+  }, []);
+
   return({
-    fontSize: fontSize,
-    fetchCoolDown: fetchCoolDown,
-    lastUpdate: lastUpdate,
-    subheading: subheading,
-    title: title,
-    small: small
+    fontSizes: {
+      body: fontSize,
+      subheading: subheading,
+      title: title,
+      small: small
+    },
+    updateTime: {
+        seconds: fetchCoolDown
+    },
+    lastUpdate:{
+        millisec: lastUpdate
+    },
+    theme: appTheme
   });
 }

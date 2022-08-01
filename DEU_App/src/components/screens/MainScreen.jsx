@@ -2,26 +2,22 @@ import React, {useEffect, useState, Component} from 'react'
 import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native'
 import RNSpeedometer from 'react-native-speedometer'
 import {useTheme} from '@react-navigation/native';
-import Theme from '../settings/theme.jsx';
+import Settings from '../settings/Settings.jsx';
 import * as Notification from "expo-notifications"
 import * as RootNavigation from '../../navigation/RootNavigation'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners'
-import TimerMixin from 'react-timer-mixin';
-import { checkPluginState } from 'react-native-reanimated/lib/reanimated2/core.js';
 
 
 
 const Main = () => {
+  const [ready,setReady] = useState(false)
   const [precipitacion, setPrecipitacion] = useState(0.0)
   const key = "4eca0073128e406ba75160847222905"
   const place = "La Plata"
+  const theme = Settings();
   const {colors} = useTheme();
-  const theme = Theme();
   const [date, setDate] = useState(null)
-
-  console.log("letra subheading: ", theme.fontSizes.subheading)
-  console.log("letra title: ", theme.fontSizes.title)
 
   const fetchPrecipitacion = async () => {
     /*const response = (await globalThis.fetch('https://api.weatherapi.com/v1/current.json?key='+key+"&q="+place+"&aqi=no", 
@@ -35,19 +31,23 @@ const Main = () => {
     setPrecipitacion(json.current.precip_mm)*/
     setPrecipitacion(Math.round(Math.random()*100))
   }
-  
+
+  useEffect(() => {
+    if(theme.fontSizes.body != null){
+      setReady(true)
+    }
+  })
+
   const handleNotification = () => {
     Notification.dismissAllNotificationsAsync();
     Notification.scheduleNotificationAsync({
       content: {
-        title: "Esta lloviendo mucho!",
-        body: "La lluvia esta pasando los 50mm en este momento, estate atento!",
+        title: "Alerta de lluvia!",
+        body: "La lluvia esta en niveles preocupantes, presiona para obtener recomendaciones",
         categoryIdentifier: "recommendation_question"
-        
       },
       trigger: null
     })
-    
   }
 
   const convertMillisecToDate = (millisec) =>{
@@ -68,7 +68,7 @@ const Main = () => {
     const nowMillisec = new Date().getTime()
     return ((nowMillisec - theme.lastUpdate.millisec)/1000)*60;
   }
-  /*
+  
   Notification.setNotificationHandler({
     handleNotification: async() => {
       return {
@@ -83,7 +83,7 @@ const Main = () => {
       identifier: 'send_recommendation',
       buttonTitle: 'Ir a recomendaciones'
     } 
-  ]);*/ 
+  ]);
 
   useEffect(()=>{
     async function getIsAppFirstLaunched(){
@@ -97,17 +97,17 @@ const Main = () => {
     return ()=>{}
   },[])
 
-  /*useEffect(()=>{
+  useEffect(()=>{
     Notification.addNotificationResponseReceivedListener(response =>{
         RootNavigation.navigate("Recomendaciones","Durante")
     });
-  },[])*/
+  },[])
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     if(theme.updateTime.seconds != 0  &&  theme.updateTime.seconds!= null){
       updateTime()
     }
-  },[])
+  },[])*/
 
   useEffect(()=>{
     setDate(convertMillisecToDate(theme.lastUpdate.millisec));
@@ -124,19 +124,23 @@ const Main = () => {
     return () => clearInterval(timer)
   })
 
+
   
   useEffect(() => {
-    if(precipitacion > 50){
+    if(precipitacion > 65){
       //handleNotification()
     }
   },[precipitacion])
 
   
+  if(!ready) return (
+    <View/>
+  )
 
   return (
     <View style={{flex:1, borderWidth:((precipitacion>65)?4:0), borderColor:((precipitacion>65)?'red':null)}}>
       <View style={{justifyContent:'flex-end', flexDirection:'row', margin:5}}>
-          <TouchableOpacity accessibilityRole="button" >
+          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Abrir ayuda" >
               <Text style={[styles.text, {fontSize: theme.fontSizes.title, color: colors.text, backgroundColor: colors.primary}]} 
                     onPress={() => { RootNavigation.navigate("Guia de inicio")}}> ?</Text>
           </TouchableOpacity>
@@ -186,17 +190,17 @@ const Main = () => {
               ]}
               />
           </View>
-        <Button onPress={updateTime} 
-          title="Actualizar precipitación"
-          accessibilityLabel="Actualizar precipitación" 
-        />
-        <View style={[styles.info_container, styles.row]}>
-          <Text style={{fontSize: theme.fontSizes.body, color: colors.text}}>Ultima actualización: {date}</Text>
+        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Actualizar precipitación">
+              <Text style={[{borderRadius: 15, padding: 15, fontSize: theme.fontSizes.body, color: colors.text, backgroundColor: colors.primary}]} 
+                    onPress={updateTime}>Actualizar precipitación</Text>
+          </TouchableOpacity>
+        <View style={[styles.info_container, styles.column]}>
+          <Text style={{fontSize: theme.fontSizes.body, color: colors.text}}>Ultima actualización: </Text>
+          <Text style={{fontSize: theme.fontSizes.body, color: colors.text}}>{date}</Text>
         </View>
       
       </View>
     </View>
-    
   )
 }
 
@@ -209,10 +213,10 @@ const styles = StyleSheet.create({
     flex:1
   },
   info_container: {
-    alignContent: "space-around"
+    alignItems: "center"
   },
-  row: {
-    flexDirection: "row",
+  column: {
+    flexDirection: "column",
   },
   container_pecipitation:{
     margin: 50,

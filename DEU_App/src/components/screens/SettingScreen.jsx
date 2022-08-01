@@ -4,30 +4,42 @@ import SettingsComponent from '../SettingsComponent';
 import { EventRegister } from 'react-native-event-listeners'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useTheme} from '@react-navigation/native';
+import Settings from "../settings/Settings"
+
 
 const SettingScreen = () => {
     const [ready, setReady] = useState(false)
-    const [fontSize, setFontSize] = useState(null);
+    const [fontSize, setFontSize] = useState(null)
     const [updateTime, setUpdateTime] = useState(null)
     const [theme, setTheme] = useState(null);
     const [fontSizeModalVisible, setFontSizeModalVisible] = useState(false);
     const [updateTimeModalVisible, setUpdateTimeModalVisible] = useState(false);
     const [themeVisible, setThemeVisible] = useState(false);
     const {colors} = useTheme();
-    
+    const settings = Settings()
+
     useEffect(() => {
-      getSettings()
-    }, []);
+      setFontSize(settings.fontSizes.body)
+      setUpdateTime(settings.updateTime.seconds)
+      setTheme(settings.theme)
+      console.log(settings)
+    })
+
+    useEffect(() => {
+      if(fontSize != null && updateTime != null && theme != null){
+        setReady(true)
+      }
+    })
     
     const saveSetting = async (key, value) => {
       const stringifiedValue = JSON.stringify(value)
       await AsyncStorage.setItem(key, stringifiedValue);
     };
 
-    const updateSetting=async (key, value) =>{
+    const updateSetting = async (key, value) =>{
       try{
         await AsyncStorage.removeItem(key)
-        const stringifiedValue = JSON.stringify(value);
+        const stringifiedValue = (typeof(value) === "string") ? value : JSON.stringify(value);
         saveSetting(key, stringifiedValue)
       }catch(error){
         console.log(error)
@@ -46,11 +58,16 @@ const SettingScreen = () => {
       if(size === 20){
         return "Mediana"
       }
-      else{
+      if(size === 24){
         return "Grande"
       }
+      return "Indeciso"
     }
 
+    if(!ready){
+      return <View style={{backgroundColor:colors.background}}></View>
+    }
+    
     const settingsOptions = [
       {
         clave: "fontSize",
@@ -74,11 +91,11 @@ const SettingScreen = () => {
       {
           clave: "theme",
           title: "Tema",
-          subTitle: (theme === "light")?"Tema claro":"Tema oscuro" ,
+          subTitle: (!theme.dark)?"Tema claro":"Tema oscuro" ,
           onPress: () => {
             setThemeVisible(true);
           },
-          hint: "Tema de la aplicación. Seleccionado el tema"+((theme === "light")?"claro":"oscuro")
+          hint: "Tema de la aplicación. Seleccionado el tema"+((!theme.dark)?"claro":"oscuro")
       }
     ];
   
@@ -177,59 +194,31 @@ const SettingScreen = () => {
       theme:[
         {
           name: "Tema claro",
-          selected: theme === "light",
+          selected: !theme.dark,
           onPress: () => {
             updateSetting("theme","light")
             setTheme("light")
             EventRegister.emit("changeTheme", false);
             setThemeVisible(false)
           },
-          hint: "Tema claro "+((theme === "light")?". Seleccionado":"")
+          hint: "Tema claro "+((!theme.dark)?". Seleccionado":"")
         },
         {
           name: "Tema oscuro",
-          selected: theme === "dark",
+          selected: theme.dark,
           onPress: () => {
             updateSetting("theme","dark")
             setTheme("dark")
             EventRegister.emit("changeTheme", true);
             setThemeVisible(false)
           },
-          hint: "Tema oscuro"+((theme === "dark")?". seleccionado":"")
+          hint: "Tema oscuro"+((theme.dark)?". seleccionado":"")
         }
       ]
     };
   
-    const getSettings = async () => {
-      try{
-        const setting = await AsyncStorage.multiGet(["fontSize","updateTime","theme"]);
-        if(setting){
-          setFontSize(JSON.parse(setting[0][1]));
-          setUpdateTime(JSON.parse(setting[1][1]));
-          setTheme(JSON.parse(setting[2][1]));
-          setReady(true)
-        }else{
-          setFontSize(JSON.stringify(20));
-          saveSetting("fontSize",20);
-          saveSetting("heading",22);
-          saveSetting("title",24);
-          saveSetting("small",18);
-          setTheme(JSON.stringify("light"));
-          saveSetting("theme", "light");
-          setUpdateTime(JSON.stringify(900));
-          saveSetting("updateTime", 900)
-        }
-      }catch(error){
-        console.log(error);
-      }
-    };
-    
     return (
       <View style={{backgroundColor:colors.background}}>
-        {!ready 
-        ? 
-        <View style={{backgroundColor:colors.background}}></View>
-        : 
         <SettingsComponent
               modalVisible={
                 {
@@ -248,9 +237,7 @@ const SettingScreen = () => {
               settingsOptions={settingsOptions}
               options={options}
           />     
-        }  
       </View>
-
     );
   };
 

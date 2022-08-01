@@ -3,17 +3,15 @@ import {View, Text} from 'react-native'
 import {useTheme} from '@react-navigation/native';
 import HowOperatesScreen from './HowOperatesScreen.jsx'
 import InfoScreen from './InfoScreen.jsx'
-import themeChanger from '../settings/themeChanger';
 import {createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer, DarkTheme }  from '@react-navigation/native';
-import Theme from '../settings/theme.jsx';
+import Settings from '../settings/Settings.jsx';
 
 const About = () => {
-    const themeNavigator = themeChanger();
-    const theme= Theme()
+    const theme = Settings()
     const Tab = createMaterialTopTabNavigator()
     return (
-        <NavigationContainer independent={true} theme={themeNavigator}>
+        <NavigationContainer independent={true} theme={theme.theme}>
                 <Tab.Navigator screenOptions={{
                     tabBarLabelStyle:{ fontSize: theme.fontSizes.body}
                 }}>

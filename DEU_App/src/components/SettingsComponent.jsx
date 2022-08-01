@@ -2,11 +2,11 @@ import React from 'react'
 import { View ,Text , ScrollView, TouchableOpacity, } from 'react-native'
 import AppModal from "../components/AppModal"
 import {useTheme} from '@react-navigation/native';
-import Theme from './settings/theme';
+import Settings from './settings/Settings';
 
 const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, options}) => { 
     const {colors} = useTheme();
-    const theme= Theme();
+    const theme = Settings();
     const returnBody = (clave) =>{
         return(
             <View accessibilityRole="combobox" accessible={true}> 
