@@ -74,7 +74,7 @@ const Main = () => {
 
   const cantSec =()=>{
     const nowMillisec = new Date().getTime()
-    return ((nowMillisec - theme.lastUpdate.millisec)/1000)*60;
+    return ((nowMillisec - theme.lastUpdate.millisec)/1000);
   }
   
   Notification.setNotificationHandler({
