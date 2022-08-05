@@ -136,7 +136,7 @@ const Main = () => {
   
   useEffect(() => {
     if(precipitacion > 65){
-      //handleNotification()
+      handleNotification()
     }
   },[precipitacion])
 
@@ -147,12 +147,6 @@ const Main = () => {
 
   return (
     <View style={{flex:1, borderWidth:((precipitacion>65)?4:0), borderColor:((precipitacion>65)?'red':null)}}>
-      <View style={{justifyContent:'flex-end', flexDirection:'row', margin:5}}>
-          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Abrir ayuda" >
-              <Text style={[styles.text, {fontSize: theme.fontSizes.title, color: colors.text, backgroundColor: colors.primary}]} 
-                    onPress={() => { RootNavigation.navigate("Guia de inicio")}}> ?</Text>
-          </TouchableOpacity>
-      </View>
       <View style={styles.container} accessible={true}> 
         <View style={{alignItems:'center', paddingTop:5}} >
           <Text style={{fontSize: theme.fontSizes.title, fontWeight: "bold", color:colors.text}}>Nivel de precipitación</Text>

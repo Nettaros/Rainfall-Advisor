@@ -78,6 +78,14 @@ const MenuItem = ({navigation}) =>{
 
             <View style={[style.separator, {borderBottomColor:colors.text}]} />
 
+            <MenuButtonItem
+                text="Guía de inicio"
+                onPress={()=> navigation.navigate('Guia de inicio')}  
+                hint="Guía de inicio sobre la aplicación"  
+            />
+
+            <View style={[style.separator, {borderBottomColor:colors.text}]} />
+
             <Text accessibilityRole="text" style={[style.footerText, {color: colors.text, fontSize: theme.fontSizes.small}]}>2020 - Diseño de Experiencia de Usuario</Text>  
         </DrawerContentScrollView>
         
