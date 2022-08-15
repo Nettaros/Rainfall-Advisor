@@ -1,8 +1,8 @@
 # Trabajo final integrador 2022 - Diseño de Experiencia de Usuario
 
-<h4 align="center">
-:construction: Proyecto en construcción :construction:
-</h4>
+<h2 align="center">
+Rainfall Advisor
+</h2>
 
 ## Descripción del proyecto
 Como trabajo final de la asignatura Diseño de Experiencia de Usuario se desarrollo una aplicación que brinda a las personas información y guía sobre la temática del Arroyo Maldonado de la cuidad de La Plata que sufrió mucho en la gran inundación del año 2013. 
