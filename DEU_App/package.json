@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "build": "expo build:android"
   },
   "dependencies": {
     "@notifee/react-native": "^5.3.0",
@@ -38,7 +39,8 @@
     "react-native-speedometer": "^1.0.5",
     "react-native-tab-view": "^3.1.1",
     "react-native-web": "0.17.7",
-    "react-timer-mixin": "^0.13.4"
+    "react-timer-mixin": "^0.13.4",
+    "expo-updates": "~0.13.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
